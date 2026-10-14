@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="LOBOKAY Brandbook — Logo, Palette, Cover, Social, Stimme & Sound, Figuren. Projekt IBRATECH.AI">
+<meta property="og:title" content="LOBOKAY Brandbook">
+<meta property="og:description" content="Brand package · Projekt IBRATECH.AI">
+<meta property="og:image" content="https://ai-praktika.github.io/lobokay-brandbook/img/logo.png">
+<meta property="og:url" content="https://ai-praktika.github.io/lobokay-brandbook/">
+<meta name="theme-color" content="#0E110E">
+<link rel="icon" type="image/png" href="img/logo.png">
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>LOBOKAY Brandbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+</head>
+<body>
+<style>
+:root{
+  --gr:#0E110E; --gr2:#151915; --gr3:#1d231d; --line:#2a322a;
+  --em:#2C7850; --cop:#C16531; --amb:#EB9243; --fur:#DCD9D8; --mut:#8f978f;
+  --red:#D3261E; --red2:#E0531F;
+  color-scheme:dark;
+  --h:"Oswald","Arial Narrow",Impact,sans-serif;
+  --t:"Exo 2","Segoe UI",system-ui,sans-serif;
+  --m:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{background:var(--gr);color:var(--fur);font-family:var(--t);font-size:15px;line-height:1.55;margin:0;padding-inline:16px;overflow-x:hidden}
+.wrap{max-width:1180px;margin:0 auto}
+h1,h2,h3{font-family:var(--h);text-transform:uppercase;letter-spacing:.04em;margin:0;text-wrap:balance}
+.lbl{font-family:var(--t);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--amb)}
+.mut{color:var(--mut)}
+section{padding-block:64px;border-top:1px solid var(--line);scroll-margin-top:20px}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.sh h2{font-size:clamp(26px,4vw,40px);font-weight:600}
+.sh .num{font-family:var(--h);color:var(--cop);font-size:14px;letter-spacing:.2em}
+.intro{margin:-14px 0 24px;max-width:68ch;color:var(--mut)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--t);font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--fur);background:transparent;border:1px solid var(--cop);padding:10px 16px;cursor:pointer;transition:.2s;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)}
+.btn:hover{background:var(--cop);color:var(--gr)}
+.btn.solid{background:var(--amb);border-color:var(--amb);color:var(--gr)}
+.btn.solid:hover{background:var(--fur);border-color:var(--fur)}
+.btn[disabled]{opacity:.5;cursor:wait}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.tag{display:inline-block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;padding:4px 8px;border:1px solid var(--amb);color:var(--amb)}
+/* top */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;justify-content:space-between;align-items:center;padding-block:12px;gap:12px;flex-wrap:wrap;margin-inline:-16px;padding-inline:16px;background:rgba(14,17,14,.86);backdrop-filter:blur(10px);border-bottom:1px solid rgba(42,50,42,.6)}
+.top b{font-family:var(--h);letter-spacing:.2em;font-weight:500}
+nav{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+nav a{color:var(--mut);text-decoration:none;font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+nav a:hover{color:var(--amb)}
+.langs{display:flex;border:1px solid var(--line)}
+.langs button{background:none;border:0;color:var(--mut);font:600 11px var(--t);letter-spacing:.14em;padding:6px 10px;cursor:pointer}
+.langs button.on{background:var(--amb);color:var(--gr)}
+/* hero */
+.hero{position:relative;min-height:88vh;display:grid;place-items:center;text-align:center;padding-block:40px;margin-inline:-16px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:url(img/hero_bg.jpg) center 30%/cover;opacity:.22;filter:blur(2px) saturate(.8);transform:scale(1.08)}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 45%,transparent,var(--gr) 92%),linear-gradient(transparent 60%,var(--gr))}
+.hero>div{position:relative;z-index:1;padding-inline:16px}
+.hero .main-logo{width:min(440px,78vw);filter:drop-shadow(0 30px 60px rgba(0,0,0,.7));transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.hero .main-logo:hover{transform:scale(1.07)}
+.hero .meta{margin-top:26px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+/* logo */
+.logo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.tile{background:var(--gr2);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.tile .stage{aspect-ratio:4/5;display:grid;place-items:center;overflow:hidden}
+.stage.checker{background:conic-gradient(#222 25%,#2b2b2b 0 50%,#222 0 75%,#2b2b2b 0) 0 0/22px 22px}
+.stage.dark{background:var(--gr)}
+.stage.city{background:url(img/city_tint.jpg) 40% center/cover}
+.stage img{max-height:92%;object-fit:contain;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.stage:hover img{transform:scale(1.1)}
+.tile h3{font-size:16px;font-weight:500}
+.tile p{margin:0;font-size:13px;color:var(--mut)}
+.pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;margin-top:30px}
+.pick figure{margin:0;background:var(--gr2);border:1px solid var(--line);position:relative;overflow:hidden;cursor:zoom-in;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .35s}
+.pick figure::after{content:"";position:absolute;inset:6px;border:1px solid var(--amb);opacity:0;transform:scale(.96);transition:.35s;pointer-events:none}
+.pick figure:hover{transform:translateY(-6px) scale(1.04);border-color:var(--amb);box-shadow:0 18px 40px rgba(0,0,0,.5),0 0 24px rgba(235,146,67,.2);z-index:2}
+.pick figure:hover::after{opacity:1;transform:scale(1)}
+.pick figure.main{border-color:var(--amb);box-shadow:0 0 0 1px var(--amb),0 0 30px rgba(235,146,67,.18)}
+.pick img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.pick .n{position:absolute;left:8px;top:8px;font-family:var(--h);font-size:22px;color:var(--fur);text-shadow:0 2px 8px #000}
+.pick .star{position:absolute;right:8px;top:8px}
+figcaption{font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:10px 12px;color:var(--mut);display:flex;justify-content:space-between;gap:8px}
+figcaption span:last-child{color:var(--cop)}
+/* palette piano */
+.pal{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
+.sw{flex:1 1 140px;border:1px solid var(--line);background:var(--gr2);transform-origin:50% 100%;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;cursor:default}
+.sw .c{height:120px}
+.sw .i{padding:12px 14px;font-size:12px}
+.sw .i b{display:block;font-family:var(--h);font-size:15px;letter-spacing:.06em;font-weight:500}
+.sw code{font-family:var(--m);color:var(--mut);font-variant-numeric:tabular-nums}
+.sw.k0{transform:translateY(-14px) scale(1.1);box-shadow:0 20px 40px rgba(0,0,0,.5);z-index:2;position:relative}
+.sw.k1{transform:translateY(-6px) scale(1.04)}
+.sw.k2{transform:translateY(-2px) scale(1.01)}
+.fonts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:24px}
+.fonts .big{font-size:56px;line-height:1;color:var(--fur)}
+/* covers */
+.covers{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.covers figure,.reels figure,.kv figure{margin:0;background:var(--gr2);border:1px solid var(--line);overflow:hidden;cursor:zoom-in;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.covers img,.reels img{display:block;width:100%;transition:transform .5s}
+.covers figure:hover,.reels figure:hover,.kv figure:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.5)}
+.covers figure:hover img,.reels figure:hover img{transform:scale(1.05)}
+.reels{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,220px));gap:14px;margin-top:14px}
+.feature{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:28px;align-items:center;margin-bottom:34px}
+.feature figure{margin:0;border:1px solid var(--amb);box-shadow:0 0 40px rgba(235,146,67,.15);cursor:zoom-in;overflow:hidden}
+.feature figure img{display:block;width:100%;transition:transform .6s}
+.feature figure:hover img{transform:scale(1.04)}
+.feature h3{font-size:clamp(24px,3.4vw,34px);margin:10px 0}
+.feature p{color:var(--mut);max-width:52ch}
+@media(max-width:700px){.feature{grid-template-columns:1fr}}
+/* social */
+.fb{background:#18191a;border:1px solid var(--line);max-width:940px;margin:0 auto;overflow:hidden;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.fb:hover{transform:scale(1.015)}
+.fb .cv{aspect-ratio:1640/624;background:url(img/fb.jpg) center/cover}
+.fb .bar{display:flex;gap:18px;align-items:flex-end;padding:0 24px 18px;flex-wrap:wrap}
+.fb .av{width:clamp(96px,17vw,168px);aspect-ratio:1;border-radius:50%;border:5px solid #18191a;margin-top:calc(clamp(96px,17vw,168px) * -.45);background:url(img/avatar.jpg) center/cover;flex:none}
+.fb .nm{padding-bottom:6px;min-width:0}
+.fb .nm h3{font-size:clamp(22px,3vw,30px);letter-spacing:.08em}
+.fb .nm p{margin:2px 0 0;color:#b0b3b8;font-size:13px}
+.fb .tabs{display:flex;gap:22px;border-top:1px solid #3a3b3c;padding:12px 24px;color:#b0b3b8;font-size:13px;overflow-x:auto}
+.fb .tabs b{color:#2d88ff;font-weight:500}
+.hl{display:flex;gap:22px;flex-wrap:wrap;justify-content:center}
+.hl div{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.hl img{width:84px;height:84px;border-radius:50%;object-fit:cover;padding:3px;border:2px solid var(--cop);background:var(--gr);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.hl div:hover img{transform:scale(1.15)}
+.phones{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;justify-items:center;perspective:1200px}
+.ph-wrap{transition:transform .25s ease-out;will-change:transform}
+.phone{width:min(330px,100%);background:#000;border-radius:38px;padding:12px;border:1px solid #333;box-shadow:0 30px 70px rgba(0,0,0,.55);transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s}
+.phone:hover{transform:scale(1.06);box-shadow:0 40px 90px rgba(0,0,0,.7),0 0 40px rgba(235,146,67,.12)}
+.screen{border-radius:28px;overflow:hidden;background:#000;color:#fff}
+.ph-head{display:flex;gap:14px;align-items:center;padding:16px 14px 10px}
+.ph-head .a{width:66px;height:66px;border-radius:50%;background:url(img/avatar.jpg) center/cover;flex:none;outline:2px solid var(--cop);outline-offset:2px}
+.ph-head .st{display:flex;gap:14px;font-size:11px;text-align:center;font-variant-numeric:tabular-nums}
+.ph-head .st b{display:block;font-size:14px}
+.ph-bio{padding:0 14px 10px;font-size:12px;line-height:1.4}
+.ph-hl{display:flex;gap:10px;padding:4px 14px 12px;overflow:hidden}
+.ph-hl img{width:46px;height:46px;border-radius:50%;border:1.5px solid #555;padding:2px;flex:none}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.g3.ig div{aspect-ratio:3/4;background-size:cover;background-position:center}
+.g3.tt div{aspect-ratio:9/16;background-size:cover;background-position:center;position:relative}
+.g3.tt div::after{content:"▷ " attr(data-v);position:absolute;left:6px;bottom:4px;font-size:10px;text-shadow:0 1px 3px #000}
+.ph-label{text-align:center;margin-top:16px}
+.sub{font-family:var(--h);text-transform:uppercase;letter-spacing:.14em;font-size:14px;color:var(--mut);margin:34px 0 14px;font-weight:500}
+/* radio */
+#radio{position:relative}
+#radio::before{content:"";position:absolute;inset:0;margin-inline:-16px;background:url(img/k4_na_karnize_noch.jpg) center 30%/cover;opacity:.14;pointer-events:none}
+#radio>*{position:relative}
+.radio{max-width:900px;margin:0 auto;background:linear-gradient(180deg,#232823,#141814);border:1px solid #3a423a;border-radius:18px;padding:22px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 60px rgba(0,0,0,.5)}
+.r-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.r-brand{font-family:var(--h);letter-spacing:.3em;font-size:14px;color:var(--mut)}
+.r-brand b{color:var(--fur)}
+.led{width:10px;height:10px;border-radius:50%;background:#3a1a16;display:inline-block;margin-right:8px;vertical-align:middle;transition:.3s}
+.on .led{background:var(--red2);box-shadow:0 0 10px var(--red2)}
+.r-modes{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+.r-key{background:#1b201b;border:1px solid #3a423a;color:var(--fur);font:600 12px var(--t);letter-spacing:.16em;text-transform:uppercase;padding:10px 14px;border-radius:8px;cursor:pointer;box-shadow:inset 0 -3px 0 rgba(0,0,0,.4);transition:.15s}
+.r-key:hover{border-color:var(--amb)}
+.r-key.on{background:var(--amb);color:var(--gr);border-color:var(--amb);box-shadow:inset 0 2px 0 rgba(0,0,0,.25),0 0 14px rgba(235,146,67,.35)}
+.r-key.lng{padding:10px 12px;min-width:48px}
+.r-key[disabled]{opacity:.35;cursor:not-allowed}
+.r-sep{width:1px;height:28px;background:#3a423a;margin-inline:4px}
+.r-display{background:#0a0c0a;border:1px solid #2a2f2a;border-radius:10px;padding:14px 16px;font-family:var(--m);color:var(--amb);display:flex;justify-content:space-between;gap:12px;align-items:center;min-height:64px;text-shadow:0 0 8px rgba(235,146,67,.45)}
+.r-display .ttl{font-size:clamp(14px,2.4vw,18px);text-transform:uppercase;letter-spacing:.08em;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.r-display .fq{font-size:22px;font-variant-numeric:tabular-nums;flex:none}
+.dial{position:relative;height:86px;margin:16px 0;background:repeating-linear-gradient(90deg,rgba(220,217,216,.35) 0 1px,transparent 1px 2.5%),linear-gradient(#1a1e1a,#101310);border:1px solid #2a2f2a;border-radius:8px;overflow:hidden;background-size:100% 30%,100% 100%;background-repeat:no-repeat;background-position:0 100%,0 0}
+.dial .st{position:absolute;top:12px;transform:translateX(-50%);font-family:var(--m);font-size:10px;color:var(--mut);cursor:pointer;white-space:nowrap;padding:2px 4px;letter-spacing:.06em;text-transform:uppercase;text-align:center}
+.dial .st small{display:block;font-size:9px;opacity:.8}
+.dial .st:hover,.dial .st.cur{color:var(--amb)}
+.needle{position:absolute;top:0;bottom:0;width:2px;background:var(--red2);box-shadow:0 0 10px var(--red2);left:6%;transition:left .9s cubic-bezier(.3,.8,.2,1)}
+.r-ctrl{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap}
+.r-btn{width:52px;height:52px;border-radius:50%;background:#1b201b;border:1px solid #3a423a;color:var(--fur);cursor:pointer;display:grid;place-items:center}
+.r-btn:hover{border-color:var(--amb);color:var(--amb)}
+.r-btn svg{width:18px;height:18px;fill:currentColor}
+.play{width:92px;height:92px;border:none;background:none;cursor:pointer;padding:0;filter:drop-shadow(0 6px 18px rgba(211,38,30,.35));transition:transform .2s}
+.play:hover{transform:scale(1.08)}
+.play svg{width:100%;height:100%}
+.vu{display:flex;gap:3px;align-items:flex-end;height:40px}
+.vu i{width:6px;background:var(--em);height:10%;transition:height .12s;border-radius:1px}
+.vu i:nth-child(n+9){background:var(--amb)}.vu i:nth-child(n+12){background:var(--red2)}
+.r-prog{height:4px;background:#2a2f2a;border-radius:2px;margin-top:16px;cursor:pointer;position:relative}
+.r-prog i{position:absolute;inset:0 auto 0 0;width:0;background:var(--amb);border-radius:2px}
+.r-time{display:flex;justify-content:space-between;font-family:var(--m);font-size:11px;color:var(--mut);margin-top:6px}
+.quote{border-left:2px solid var(--cop);padding:4px 0 4px 14px;font-style:italic;color:var(--fur);margin:22px auto 0;max-width:900px}
+/* characters */
+.cast{display:flex;flex-direction:column;gap:30px}
+.ch{position:relative;background:var(--gr2);border:1px solid var(--line);padding:26px 20px 34px;overflow:hidden}
+.ch.enemy{background:linear-gradient(160deg,rgba(179,38,30,.10),transparent 55%),var(--gr2)}
+.ch.hero-c{background:linear-gradient(160deg,rgba(44,120,80,.16),transparent 55%),var(--gr2)}
+.ch .bgname{position:absolute;right:-6px;top:-18px;font-family:var(--h);font-size:min(20vw,200px);font-weight:700;line-height:1;pointer-events:none;color:rgba(220,217,216,.04);white-space:nowrap}
+.ch-head{position:relative;margin-bottom:20px}
+.ch-head h3{font-size:clamp(28px,5vw,46px)}
+.ch-head h3 span{color:var(--red2)}
+.ch.hero-c .ch-head h3 span{color:var(--em)}
+.ch-head p{margin:4px 0 0;color:var(--mut);font-size:13px;max-width:60ch}
+.diag{position:relative;display:flex;justify-content:space-around;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.u{position:relative;transition:transform .45s cubic-bezier(.2,.8,.2,1);z-index:1;cursor:zoom-in;outline:none;-webkit-tap-highlight-color:transparent;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.u,.u *{-webkit-tap-highlight-color:transparent}
+.u:focus{outline:none}
+.u img{height:clamp(220px,34vw,400px);width:auto;max-width:100%;display:block;margin:0 auto;-webkit-user-select:none;-webkit-user-drag:none;user-select:none;-webkit-touch-callout:none}
+.u .glow{position:absolute;inset:-6% -18%;opacity:0;transition:opacity .4s;pointer-events:none;z-index:-1;--gc:235,146,67;background:radial-gradient(closest-side,rgba(var(--gc),.5),rgba(var(--gc),.18) 55%,rgba(var(--gc),0))}
+.enemy .u .glow{--gc:224,83,31}
+.hero-c .u .glow{--gc:44,160,100}
+.tech .u .glow{--gc:235,146,67}
+.tech .u::after{display:none}
+@media (hover:hover) and (pointer:fine){.u img{filter:drop-shadow(0 18px 24px rgba(0,0,0,.7))}}
+@media (hover:hover){.u:hover{transform:scale(1.35);z-index:5}.u:hover .glow{opacity:1}.tech .u:hover{transform:scale(1.25)}}
+.u.act{transform:scale(1.15);z-index:5}
+.u.act .glow{opacity:1}
+.u .cap{font-size:10px;letter-spacing:.2em;text-transform:uppercase;text-align:center;margin-top:6px;color:var(--mut)}
+.u .cap b{font-family:var(--h);font-size:13px;display:block;letter-spacing:.12em;color:var(--fur)}
+.sheetlink{display:flex;gap:14px;align-items:center;margin-top:26px;position:relative;cursor:zoom-in}
+.sheetlink img{width:120px;border:1px solid var(--line);transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s;transform-origin:left center}
+.sheetlink div{transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.sheetlink:hover img{transform:scale(1.9);box-shadow:0 20px 50px rgba(0,0,0,.6);position:relative;z-index:3}
+.sheetlink:hover div{transform:translateX(110px)}
+@media(max-width:640px){.diag{display:grid;grid-template-columns:repeat(2,1fr)}.u{margin-top:0!important}.u:nth-child(even){margin-top:40px!important}.u img{height:220px}.sheetlink:hover img{transform:scale(1.4)}.sheetlink:hover div{transform:translateX(50px)}}
+.tech{background:radial-gradient(80% 60% at 50% 0%,rgba(235,146,67,.07),transparent),var(--gr2)}
+.tech .diag{display:grid;grid-template-columns:repeat(var(--n,4),1fr);align-items:center}
+.tech .u img{height:auto;width:100%}
+@media(max-width:640px){.tech .diag{grid-template-columns:repeat(2,1fr)}}
+
+/* touch devices: no layer rebuild after tap -> no square edges */
+html.touch .u{transition:transform .35s ease;will-change:transform;transform:translate3d(0,0,0) scale(1);-webkit-backface-visibility:visible;backface-visibility:visible}
+html.touch .u:hover{transform:translate3d(0,0,0) scale(1)}
+html.touch .u.act{transform:translate3d(0,0,0) scale(1.15)}
+html.touch .u img{filter:none!important;outline:1px solid transparent;-webkit-transform:translateZ(0)}
+html.touch .u .glow{will-change:opacity;transition:opacity .3s}
+html.touch .u:hover .glow{opacity:0}
+html.touch .u.act .glow{opacity:1}
+html.touch .ret{display:none!important}
+/* kv */
+.kv{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.kv img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block;transition:transform .6s}
+.kv figure:hover img{transform:scale(1.06)}
+/* downloads */
+.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.dli{background:var(--gr2);border:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:10px;transition:border-color .3s,transform .3s}
+.dli:hover{border-color:var(--cop);transform:translateY(-3px)}
+.dli b{font-family:var(--h);font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.dli small{color:var(--mut);font-size:12px}
+/* reticle cursor */
+.ret{position:fixed;left:0;top:0;width:28px;height:28px;pointer-events:none;z-index:50;opacity:0;transition:opacity .25s}
+.ret i{position:absolute;width:12px;height:12px;border-color:var(--amb);border-style:solid;filter:drop-shadow(0 0 4px rgba(235,146,67,.6))}
+.ret i:nth-child(1){left:0;top:0;border-width:2px 0 0 2px}
+.ret i:nth-child(2){right:0;top:0;border-width:2px 2px 0 0}
+.ret i:nth-child(3){left:0;bottom:0;border-width:0 0 2px 2px}
+.ret i:nth-child(4){right:0;bottom:0;border-width:0 2px 2px 0}
+.ret .dot{position:absolute;left:50%;top:50%;width:4px;height:4px;margin:-2px 0 0 -2px;background:var(--red2);border-radius:50%}
+.ret.lock .dot{opacity:0}
+@media (hover:none),(pointer:coarse){.ret{display:none!important}}
+/* lightbox + toast */
+.lb{position:fixed;inset:0;background:rgba(5,7,5,.94);z-index:60;display:grid;place-items:center;padding:20px;cursor:zoom-out}
+.lb img{max-width:100%;max-height:92vh;box-shadow:0 20px 60px #000}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--gr3);border:1px solid var(--amb);padding:10px 16px;font-size:13px;z-index:70;max-width:90vw}
+/* footer */
+footer{padding-block:56px 40px;border-top:1px solid var(--line);text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px}
+.mylogo{width:min(240px,60vw);background:none;padding:0;transition:transform .5s cubic-bezier(.2,.8,.2,1),filter .5s;cursor:zoom-in;-webkit-tap-highlight-color:transparent}
+.mylogo img{filter:drop-shadow(0 12px 30px rgba(0,0,0,.55))}
+.mylogo:hover{transform:scale(1.14)}
+.mylogo:hover img{filter:drop-shadow(0 16px 40px rgba(0,0,0,.6)) drop-shadow(0 0 18px rgba(211,38,30,.3))}
+.mylogo img{display:block;width:100%}
+.proj{font-family:var(--t);font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:var(--mut)}
+.proj b{color:var(--fur);font-weight:600}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <b>LOBOKAY · BRANDBOOK</b>
+    <nav>
+      <a href="#logo" data-i="nav_logo">Логотип</a><a href="#palette" data-i="nav_pal">Палитра</a><a href="#covers" data-i="nav_cov">Обложки</a><a href="#social" data-i="nav_soc">Соцсети</a><a href="#radio" data-i="nav_rad">Голос</a><a href="#cast" data-i="nav_cast">Герои</a><a href="#tech" data-i="nav_tech">Техника</a><a href="#downloads" data-i="nav_dl">Скачать</a>
+      <div class="langs" role="group" aria-label="Language"><button data-lang="ru" class="on">RU</button><button data-lang="en">EN</button><button data-lang="de">DE</button></div>
+    </nav>
+  </div>
+
+  <header class="hero">
+    <div>
+      <div class="lbl">IBRATECH.AI · Brand Package v1 · 2026</div>
+      <img class="main-logo" src="img/logo.png" alt="LOBOKAY">
+      <div class="meta">
+        <button class="btn solid" data-go="fon" data-i="hero_fon">▶ Фоновый звук</button>
+        <button class="btn" data-go="voice" data-i="hero_voice">▶ Диктор</button>
+      </div>
+    </div>
+  </header>
+
+  <section id="logo">
+    <div class="sh"><h2 data-i="s_logo">Логотип</h2><span class="num">01</span></div>
+    <div class="logo-grid">
+      <div class="tile"><div class="stage dark"><img src="img/logo.png" alt=""></div><h3 data-i="lg1_h">Основной · на графите</h3><p data-i="lg1_p">Для аватарок, заставок и превью. Фон #0E110E.</p><div class="row"><button class="btn" data-dl="dl/LOBOKAY_LOGO_na_grafite.png" data-i="lg1_b">PNG на графите</button></div></div>
+      <div class="tile"><div class="stage checker"><img src="img/logo.png" alt=""></div><h3 data-i="lg2_h">Без фона · накладка</h3><p data-i="lg2_p">Прозрачный PNG для монтажа поверх видео. Исходник 4K в папке 03_LOGO.</p><div class="row"><button class="btn" data-dl="dl/LOBOKAY_LOGO_bez_fona.png" data-i="lg2_b">PNG без фона</button></div></div>
+      <div class="tile"><div class="stage city"><img src="img/logo.png" alt=""></div><h3 data-i="lg3_h">На разрушенном городе</h3><p data-i="lg3_p">Проверка читаемости: ночной город после удара, тонировка в чёрный.</p></div>
+    </div>
+    <div class="sub" data-i="pick_t">Варианты на выбор · ★ главный</div>
+    <div class="pick">
+      <figure><img src="img/logos/logo_01.jpg" alt="" loading="lazy"><span class="n">01</span><figcaption><span data-i="p1">Знак · металл</span><span>G2</span></figcaption></figure>
+      <figure><img src="img/logos/logo_02.jpg" alt="" loading="lazy"><span class="n">02</span><figcaption><span data-i="p2">Полный · металл</span><span>G3</span></figcaption></figure>
+      <figure><img src="img/logos/logo_03.jpg" alt="" loading="lazy"><span class="n">03</span><figcaption><span data-i="p3">Полный · вариант B</span><span>G3</span></figcaption></figure>
+      <figure><img src="img/logos/logo_04.jpg" alt="" loading="lazy"><span class="n">04</span><figcaption><span data-i="p4">Знак · графика</span><span>H2</span></figcaption></figure>
+      <figure class="main"><img src="img/logos/logo_05_main.jpg" alt="" loading="lazy"><span class="n">05</span><span class="star tag" data-i="p_main">★ Главный</span><figcaption><span data-i="p5">Волк + надпись</span><span>H1</span></figcaption></figure>
+      <figure><img src="img/logos/logo_06.jpg" alt="" loading="lazy"><span class="n">06</span><figcaption><span data-i="p6">Текстовый титр</span><span>G1</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section id="palette">
+    <div class="sh"><h2 data-i="s_pal">Палитра и шрифты</h2><span class="num">02</span></div>
+    <div class="pal" id="pal">
+      <div class="sw"><div class="c" style="background:#0E110E;outline:1px solid #2a322a;outline-offset:-1px"></div><div class="i"><b>Graphit</b><code>#0E110E</code> · <span data-i="c1">фон</span></div></div>
+      <div class="sw"><div class="c" style="background:#2C7850"></div><div class="i"><b>Smaragd</b><code>#2C7850</code> · <span data-i="c2">броня</span></div></div>
+      <div class="sw"><div class="c" style="background:#C16531"></div><div class="i"><b>Kupfer</b><code>#C16531</code> · <span data-i="c3">акценты</span></div></div>
+      <div class="sw"><div class="c" style="background:#EB9243"></div><div class="i"><b>Amber</b><code>#EB9243</code> · <span data-i="c4">визор</span></div></div>
+      <div class="sw"><div class="c" style="background:#DCD9D8"></div><div class="i"><b>Fell</b><code>#DCD9D8</code> · <span data-i="c5">шерсть, текст</span></div></div>
+      <div class="sw"><div class="c" style="background:linear-gradient(135deg,#B3261E,#E0531F)"></div><div class="i"><b>Feind</b><code>#B3261E</code> · <span data-i="c6">враги</span></div></div>
+    </div>
+    <div class="fonts">
+      <div class="tile"><span class="lbl" data-i="f1">Заголовки</span><div class="big" style="font-family:var(--h);font-weight:600">OSWALD</div><p>WER BEUTE WAR, WURDE JÄGER. — 600/700</p></div>
+      <div class="tile"><span class="lbl" data-i="f2">Техника и подписи</span><div class="big" style="font-family:var(--t);font-weight:500;font-size:46px">Exo 2</div><p>ONE STEP AHEAD · FOLGE 01 · GRX-07 — 400/600</p></div>
+    </div>
+  </section>
+
+  <section id="covers">
+    <div class="sh"><h2 data-i="s_cov">Обложки</h2><span class="num">03</span></div>
+    <div class="feature">
+      <figure data-full="img/oblozhka_a_9x16.jpg"><img src="img/oblozhka_a_9x16.jpg" alt=""></figure>
+      <div>
+        <span class="tag" data-i="cov_ok">✓ Выбрана</span>
+        <h3>Erwachen · Glitch-Poster</h3>
+        <p data-i="cov_p">Лобокай слева, правая сторона распадается на цифровые осколки. Вертикальный титр и технические метки — стиль редакционного постера.</p>
+        <div class="row" style="margin-top:16px"><button class="btn solid" data-zip="LOBOKAY_OBLOZHKA_ERWACHEN" data-i="cov_dl">Скачать (9:16 + 4:5)</button></div>
+      </div>
+    </div>
+    <div class="covers">
+      <figure><img src="img/oblozhka_a_4x5.jpg" alt="" loading="lazy"><figcaption><span>Erwachen</span><span>4:5</span></figcaption></figure>
+      <figure><img src="img/oblozhka_c_4x5.jpg" alt="" loading="lazy"><figcaption><span>Erwachen · C</span><span>4:5</span></figcaption></figure>
+      <figure><img src="img/post_4x5_00_logo.jpg" alt="" loading="lazy"><figcaption><span>Logo</span><span>4:5</span></figcaption></figure>
+      <figure><img src="img/post_4x5_01_folge01.jpg" alt="" loading="lazy"><figcaption><span>Folge 01</span><span>4:5</span></figcaption></figure>
+      <figure><img src="img/post_4x5_02_zitat.jpg" alt="" loading="lazy"><figcaption><span>Zitat</span><span>4:5</span></figcaption></figure>
+      <figure><img src="img/post_4x5_03_rudel.jpg" alt="" loading="lazy"><figcaption><span>Rudel</span><span>4:5</span></figcaption></figure>
+      <figure><img src="img/post_4x5_04_folge02.jpg" alt="" loading="lazy"><figcaption><span>Folge 02</span><span>4:5</span></figcaption></figure>
+      <figure><img src="img/post_4x5_05_feind_grx07.jpg" alt="" loading="lazy"><figcaption><span>Feind · GRX-07</span><span>4:5</span></figcaption></figure>
+    </div>
+    <div class="reels">
+      <figure><img src="img/reels_9x16_01_wache.jpg" alt="" loading="lazy"><figcaption><span>Reels · Wache</span><span>9:16</span></figcaption></figure>
+      <figure><img src="img/reels_9x16_02_erwachen.jpg" alt="" loading="lazy"><figcaption><span>Reels · Erwachen</span><span>9:16</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section id="social">
+    <div class="sh"><h2>Facebook · Instagram · TikTok</h2><span class="num">04</span></div>
+    <div class="sub" style="margin-top:0" data-i="fb_t">Facebook — обложка 1640×624 + аватар</div>
+    <div class="fb">
+      <div class="cv" role="img" aria-label="Facebook"></div>
+      <div class="bar"><div class="av"></div><div class="nm"><h3>LOBOKAY</h3><p>Animationsserie · One step ahead</p></div></div>
+      <div class="tabs"><b>Beiträge</b><span>Info</span><span>Videos</span><span>Fotos</span><span>Mehr</span></div>
+    </div>
+    <div class="sub" data-i="hl_t">Хайлайты</div>
+    <div class="hl">
+      <div><img src="img/hl_episoden.jpg" alt="">Episoden</div><div><img src="img/hl_held.jpg" alt="">Held</div><div><img src="img/hl_rudel.jpg" alt="">Rudel</div><div><img src="img/hl_feinde.jpg" alt="">Feinde</div><div><img src="img/hl_backstage.jpg" alt="">Backstage</div><div><img src="img/hl_kontakt.jpg" alt="">Kontakt</div>
+    </div>
+    <div class="sub" data-i="grid_t">Сетка профиля</div>
+    <div class="phones">
+      <div class="ph-wrap" data-dir="-1">
+        <div class="phone"><div class="screen">
+          <div class="ph-head"><div class="a"></div><div class="st"><div><b>12</b>Beiträge</div><div><b>—</b>Follower</div><div><b>—</b>Gefolgt</div></div></div>
+          <div class="ph-bio"><b>LOBOKAY</b><br>Wer Beute war, wurde Jäger.<br>Animationsserie · ONE STEP AHEAD</div>
+          <div class="ph-hl"><img src="img/hl_episoden.jpg" alt=""><img src="img/hl_held.jpg" alt=""><img src="img/hl_rudel.jpg" alt=""><img src="img/hl_feinde.jpg" alt=""><img src="img/hl_backstage.jpg" alt=""></div>
+          <div class="g3 ig">
+            <div style="background-image:url(img/oblozhka_a_4x5.jpg)"></div><div style="background-image:url(img/post_4x5_02_zitat.jpg)"></div><div style="background-image:url(img/post_4x5_00_logo.jpg)"></div>
+            <div style="background-image:url(img/post_4x5_05_feind_grx07.jpg)"></div><div style="background-image:url(img/post_4x5_03_rudel.jpg)"></div><div style="background-image:url(img/post_4x5_04_folge02.jpg)"></div>
+            <div style="background-image:url(img/k1_krysha_zakat.jpg)"></div><div style="background-image:url(img/k2_portret_dozhd.jpg)"></div><div style="background-image:url(img/post_4x5_01_folge01.jpg)"></div>
+          </div>
+        </div></div>
+        <div class="ph-label lbl">Instagram · 3:4</div>
+      </div>
+      <div class="ph-wrap" data-dir="1">
+        <div class="phone"><div class="screen">
+          <div class="ph-head" style="flex-direction:column;text-align:center"><div class="a"></div><b style="font-size:14px">@lobokay</b><div class="st"><div><b>—</b>Gefolgt</div><div><b>—</b>Follower</div><div><b>—</b>Likes</div></div></div>
+          <div class="ph-bio" style="text-align:center">ONE STEP AHEAD · Animationsserie</div>
+          <div class="g3 tt">
+            <div data-v="Erwachen" style="background-image:url(img/oblozhka_a_9x16.jpg)"></div><div data-v="Wache" style="background-image:url(img/reels_9x16_01_wache.jpg)"></div><div data-v="Folge 01" style="background-image:url(img/reels_9x16_02_erwachen.jpg)"></div>
+            <div data-v="Regen" style="background-image:url(img/k2_portret_dozhd.jpg)"></div><div data-v="Rauch" style="background-image:url(img/k3_iz_dyma.jpg)"></div><div data-v="Nacht" style="background-image:url(img/k4_na_karnize_noch.jpg)"></div>
+          </div>
+        </div></div>
+        <div class="ph-label lbl">TikTok · 9:16</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="radio">
+    <div class="sh"><h2 data-i="s_rad">Голос и звук</h2><span class="num">05</span></div>
+    <p class="intro" data-i="rad_intro">Радиоприёмник LOBOKAY. «Диктор» — пролог на RU / EN / DE одним голосом. «Фоновый звук» — мужские голоса и гул, без музыки. Нажми красный треугольник.</p>
+    <div class="radio" id="radioBox">
+      <div class="r-top"><div class="r-brand"><span class="led"></span><b>LOBOKAY</b> · FUNK-EMPFÄNGER RX-07</div><div class="vu" id="vu"></div></div>
+      <div class="r-modes">
+        <button class="r-key on" data-mode="voice" data-i="m_voice">Диктор</button>
+        <button class="r-key" data-mode="fon" data-i="m_fon">Фоновый звук</button>
+        <span class="r-sep"></span>
+        <button class="r-key lng on" data-vl="RU">RU</button><button class="r-key lng" data-vl="EN">EN</button><button class="r-key lng" data-vl="DE">DE</button>
+      </div>
+      <div class="r-display"><span class="ttl" id="rTitle">— Bereit —</span><span class="fq" id="rFq">88.0</span></div>
+      <div class="dial" id="dial"><div class="needle" id="needle"></div></div>
+      <div class="r-ctrl">
+        <button class="r-btn" id="rPrev" aria-label="Prev"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+        <button class="play" id="rPlay" aria-label="Play"><svg viewBox="0 0 100 100" id="playIcon"></svg></button>
+        <button class="r-btn" id="rNext" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+      </div>
+      <div class="r-prog" id="rProg"><i></i></div>
+      <div class="r-time"><span id="rCur">0:00</span><span id="rDur">0:00</span></div>
+    </div>
+    <p class="quote" data-i="rad_q">«Когда-то верил человек, что он построил вечный век…» — пролог LOBOKAY, голос диктора.</p>
+    <div class="row" style="margin-top:22px;justify-content:center"><button class="btn solid" data-zip="LOBOKAY_ZVUK_I_GOLOS" data-i="rad_dl">Скачать голос и фон (ZIP)</button></div>
+  </section>
+
+  <section id="cast">
+    <div class="sh"><h2 data-i="s_cast">Герои и антигерои</h2><span class="num">06</span></div>
+    <p class="intro" data-i="cast_intro">Все персонажи без фона. Наведи курсор, чтобы увеличить; на телефоне — коснись. Лист персонажа открывается по клику.</p>
+    <div class="cast" id="castBox"></div>
+  </section>
+
+  <section id="tech">
+    <div class="sh"><h2 data-i="s_tech">Техника врага</h2><span class="num">07</span></div>
+    <p class="intro" data-i="tech_intro">Дроны и корабли в разных ракурсах, без фона.</p>
+    <div class="cast" id="techBox"></div>
+  </section>
+
+  <section id="kv">
+    <div class="sh"><h2 data-i="s_kv">Ключевые кадры</h2><span class="num">08</span></div>
+    <div class="kv">
+      <figure><img src="img/k4_na_karnize_noch.jpg" alt="" loading="lazy"><figcaption><span data-i="k4">На карнизе · ночь</span><span>K4</span></figcaption></figure>
+      <figure><img src="img/k1_krysha_zakat.jpg" alt="" loading="lazy"><figcaption><span data-i="k1">Крыша · закат</span><span>K1</span></figcaption></figure>
+      <figure><img src="img/k2_portret_dozhd.jpg" alt="" loading="lazy"><figcaption><span data-i="k2">Портрет · дождь</span><span>K2</span></figcaption></figure>
+      <figure><img src="img/k3_iz_dyma.jpg" alt="" loading="lazy"><figcaption><span data-i="k3">Из дыма</span><span>K3</span></figcaption></figure>
+      <figure><img src="img/k5_shirokij_fb.jpg" alt="" loading="lazy"><figcaption><span data-i="k5">Широкий план</span><span>K5</span></figcaption></figure>
+      <figure><img src="img/k6_staya_lider.jpg" alt="" loading="lazy"><figcaption><span data-i="k6">Стая · лидер</span><span>K6</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section id="downloads">
+    <div class="sh"><h2 data-i="s_dl">Скачать</h2><span class="num">09</span></div>
+    <div class="dl">
+      <div class="dli"><b data-i="d1">Логотип без фона</b><small>PNG</small><button class="btn" data-dl="dl/LOBOKAY_LOGO_bez_fona.png" data-i="dlb">Скачать</button></div>
+      <div class="dli"><b data-i="d2">Логотип на графите</b><small>PNG</small><button class="btn" data-dl="dl/LOBOKAY_LOGO_na_grafite.png" data-i="dlb">Скачать</button></div>
+      <div class="dli"><b data-i="d3">Логотипы на выбор</b><small>ZIP · 6</small><button class="btn" data-zip="LOBOKAY_LOGO_VARIANTY" data-i="dlb">Скачать</button></div>
+      <div class="dli"><b data-i="d4">Аватар</b><small>JPG 1080×1080</small><button class="btn" data-dl="dl/LOBOKAY_AVATAR_1080.jpg" data-i="dlb">Скачать</button></div>
+      <div class="dli"><b data-i="d5">Обложка Facebook</b><small>JPG 1640×624</small><button class="btn" data-dl="dl/LOBOKAY_FACEBOOK_COVER_1640x624.jpg" data-i="dlb">Скачать</button></div>
+      <div class="dli"><b data-i="d6">Обложка Erwachen</b><small>ZIP · 9:16, 4:5</small><button class="btn" data-zip="LOBOKAY_OBLOZHKA_ERWACHEN" data-i="dlb">Скачать</button></div>
+      <div class="dli"><b data-i="d7">Обложки постов и Reels</b><small>ZIP · 4:5, 9:16</small><button class="btn" data-zip="LOBOKAY_OBLOZHKI" data-i="dlb">Скачать</button></div>
+      <div class="dli"><b data-i="d8">Хайлайты</b><small>ZIP · 6</small><button class="btn" data-zip="LOBOKAY_HIGHLIGHTS" data-i="dlb">Скачать</button></div>
+      <div class="dli"><b data-i="d9">Листы персонажей</b><small>ZIP · JPG 2160×2700</small><button class="btn" data-zip="LOBOKAY_CHARACTER_SHEETS" data-i="dlb">Скачать</button></div>
+      <div class="dli"><b data-i="d10">Персонажи без фона</b><small>ZIP · PNG</small><button class="btn" data-zip="LOBOKAY_FIGUREN_BEZ_FONA" data-i="dlb">Скачать</button></div>
+      <div class="dli"><b data-i="d11">Техника без фона</b><small>ZIP · PNG</small><button class="btn" data-zip="LOBOKAY_TECHNIK_BEZ_FONA" data-i="dlb">Скачать</button></div>
+      <div class="dli"><b data-i="d12">Ключевые кадры</b><small>ZIP · 6</small><button class="btn" data-zip="LOBOKAY_KEY_VISUALS" data-i="dlb">Скачать</button></div>
+      <div class="dli"><b data-i="d13">Голос диктора и фон</b><small>ZIP · MP3 RU/EN/DE</small><button class="btn" data-zip="LOBOKAY_ZVUK_I_GOLOS" data-i="dlb">Скачать</button></div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="mylogo" data-full="img/ibrahatuev_logo.png"><img src="img/ibrahatuev_logo.png" alt="ibrahatuev — Life in every frame"></div>
+  <div class="proj">Projekt · <b>IBRATECH.AI</b></div>
+  <div class="mut" style="font-size:11px;letter-spacing:.2em">LOBOKAY · ONE STEP AHEAD · 2026</div>
+</footer>
+
+<div class="ret" id="ret" aria-hidden="true"><i></i><i></i><i></i><i></i><span class="dot"></span></div>
+<div class="lb" id="lb" hidden><img alt=""></div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="js/jszip.min.js"></script>
+<script>
+const BUNDLES={"LOBOKAY_OBLOZHKA_ERWACHEN": ["dl/cov/OBLOZHKA_A_4x5.jpg", "dl/cov/OBLOZHKA_A_9x16.jpg", "dl/cov/OBLOZHKA_C_4x5.jpg"], "LOBOKAY_LOGO_VARIANTY": ["dl/logo/01_G2_znak.png", "dl/logo/02_G3_polnyj.png", "dl/logo/03_G3_polnyj_B.png", "dl/logo/04_H2_znak_grafika.png", "dl/logo/05_GLAVNYJ.png", "dl/logo/06_G1_titr.png"], "LOBOKAY_CHARACTER_SHEETS": ["dl/sheets/GRON_CHARACTER_SHEET.jpg", "dl/sheets/GRX07_CHARACTER_SHEET.jpg", "dl/sheets/LOBOKAY_CHARACTER_SHEET.jpg", "dl/sheets/SCOTT_CHARACTER_SHEET.jpg"], "LOBOKAY_FIGUREN_BEZ_FONA": ["dl/fig/grx07_1.png", "dl/fig/grx07_2.png", "dl/fig/grx07_3.png", "dl/fig/grx07_4.png", "dl/fig/lobokay_1.png", "dl/fig/lobokay_2.png", "dl/fig/lobokay_3.png", "dl/fig/lobokay_4.png", "dl/fig/gron_1.png", "dl/fig/gron_2.png", "dl/fig/gron_3.png", "dl/fig/gron_4.png", "dl/fig/scott_1.png", "dl/fig/scott_2.png", "dl/fig/scott_3.png", "dl/fig/scott_4.png"], "LOBOKAY_TECHNIK_BEZ_FONA": ["dl/tech/DRON_B_1.png", "dl/tech/DRON_B_2.png", "dl/tech/DRON_B_3.png", "dl/tech/DRON_B_4.png", "dl/tech/DRON_PON_1.png", "dl/tech/DRON_PON_2.png", "dl/tech/DRON_PON_3.png", "dl/tech/DRON_PON_4.png", "dl/tech/KORABL_DESANT_A_1.png", "dl/tech/KORABL_DESANT_A_2.png", "dl/tech/KORABL_DESANT_A_3.png", "dl/tech/KORABL_DESANT_A_4.png", "dl/tech/KORABL_DESANT_B_1.png", "dl/tech/KORABL_DESANT_B_2.png", "dl/tech/KORABL_DESANT_B_3.png", "dl/tech/KORABL_DESANT_B_4.png", "dl/tech/KORABL_KOSMOS_1.png", "dl/tech/KORABL_KOSMOS_2.png", "dl/tech/KORABL_KOSMOS_22_1.png", "dl/tech/KORABL_KOSMOS_22_2.png", "dl/tech/KORABL_KOSMOS_22_3.png", "dl/tech/KORABL_KOSMOS_3.png"], "LOBOKAY_OBLOZHKI": ["dl/oblozhki/POST_4x5_00_LOGO.jpg", "dl/oblozhki/POST_4x5_01_FOLGE01.jpg", "dl/oblozhki/POST_4x5_02_ZITAT.jpg", "dl/oblozhki/POST_4x5_03_RUDEL.jpg", "dl/oblozhki/POST_4x5_04_FOLGE02.jpg", "dl/oblozhki/POST_4x5_05_FEIND_GRX07.jpg", "dl/oblozhki/REELS_9x16_01_WACHE.jpg", "dl/oblozhki/REELS_9x16_02_ERWACHEN.jpg"], "LOBOKAY_HIGHLIGHTS": ["dl/hl/HL_BACKSTAGE.jpg", "dl/hl/HL_EPISODEN.jpg", "dl/hl/HL_FEINDE.jpg", "dl/hl/HL_HELD.jpg", "dl/hl/HL_KONTAKT.jpg", "dl/hl/HL_RUDEL.jpg"], "LOBOKAY_KEY_VISUALS": ["dl/kv/K1_krysha_zakat.jpg", "dl/kv/K2_portret_dozhd.jpg", "dl/kv/K3_iz_dyma.jpg", "dl/kv/K4_na_karnize_noch.jpg", "dl/kv/K5_shirokij_FB.jpg", "dl/kv/K6_staya_lider.jpg"], "LOBOKAY_ZVUK_I_GOLOS": ["audio/DIKTOR_RU.mp3", "audio/DIKTOR_EN.mp3", "audio/DIKTOR_DE.mp3", "audio/FON_NASHID.mp3"]};
+/* ---------- i18n ---------- */
+const T={
+nav_logo:["Логотип","Logo","Logo"],nav_pal:["Палитра","Palette","Palette"],nav_cov:["Обложки","Covers","Cover"],nav_soc:["Соцсети","Social","Social"],nav_rad:["Голос","Voice","Stimme"],nav_cast:["Герои","Characters","Figuren"],nav_tech:["Техника","Vehicles","Technik"],nav_dl:["Скачать","Download","Download"],
+hero_fon:["▶ Фоновый звук","▶ Background sound","▶ Hintergrundsound"],hero_voice:["▶ Диктор","▶ Narrator","▶ Sprecher"],
+s_logo:["Логотип","Logo","Logo"],lg1_h:["Основной · на графите","Main · on graphite","Haupt · auf Graphit"],lg1_p:["Для аватарок, заставок и превью. Фон #0E110E.","For avatars, intros and thumbnails. Background #0E110E.","Für Avatare, Intros und Thumbnails. Hintergrund #0E110E."],lg1_b:["PNG на графите","PNG on graphite","PNG auf Graphit"],
+lg2_h:["Без фона · накладка","Transparent · overlay","Transparent · Overlay"],lg2_p:["Прозрачный PNG для монтажа поверх видео. Исходник 4K в папке 03_LOGO.","Transparent PNG to overlay on video. 4K source in 03_LOGO.","Transparentes PNG als Overlay im Video. 4K-Quelle in 03_LOGO."],lg2_b:["PNG без фона","Transparent PNG","Transparentes PNG"],
+lg3_h:["На разрушенном городе","Over the ruined city","Über der zerstörten Stadt"],lg3_p:["Проверка читаемости: ночной город после удара, тонировка в чёрный.","Legibility test: the night city after the strike, toned to black.","Lesbarkeitstest: die Stadt nach dem Angriff, schwarz getönt."],
+pick_t:["Варианты на выбор · ★ главный","Options · ★ main","Varianten · ★ Haupt"],p1:["Знак · металл","Mark · metal","Zeichen · Metall"],p2:["Полный · металл","Full · metal","Komplett · Metall"],p3:["Полный · вариант B","Full · option B","Komplett · Variante B"],p4:["Знак · графика","Mark · graphic","Zeichen · Grafik"],p5:["Волк + надпись","Wolf + wordmark","Wolf + Schriftzug"],p6:["Текстовый титр","Wordmark title","Schrift-Titel"],p_main:["★ Главный","★ Main","★ Haupt"],
+s_pal:["Палитра и шрифты","Palette & fonts","Palette & Schriften"],c1:["фон","background","Hintergrund"],c2:["броня","armor","Rüstung"],c3:["акценты","accents","Akzente"],c4:["визор","visor","Visier"],c5:["шерсть, текст","fur, text","Fell, Text"],c6:["враги","enemies","Feinde"],f1:["Заголовки","Headlines","Überschriften"],f2:["Техника и подписи","Tech & labels","Technik & Labels"],
+s_cov:["Обложки","Covers","Cover"],cov_ok:["✓ Выбрана","✓ Approved","✓ Freigegeben"],cov_p:["Лобокай слева, правая сторона распадается на цифровые осколки. Вертикальный титр и технические метки — стиль редакционного постера.","Lobokay on the left, his right side dissolving into digital shards. Vertical title and technical labels in an editorial poster style.","Lobokay links, seine rechte Seite zerfällt in digitale Splitter. Vertikaler Titel und technische Labels im Editorial-Poster-Stil."],cov_dl:["Скачать (9:16 + 4:5)","Download (9:16 + 4:5)","Download (9:16 + 4:5)"],
+fb_t:["Facebook — обложка 1640×624 + аватар","Facebook — cover 1640×624 + avatar","Facebook — Titelbild 1640×624 + Avatar"],hl_t:["Хайлайты","Highlights","Highlights"],grid_t:["Сетка профиля","Profile grid","Profil-Raster"],
+s_rad:["Голос и звук","Voice & sound","Stimme & Sound"],rad_intro:["Радиоприёмник LOBOKAY. «Диктор» — пролог на RU / EN / DE одним голосом. «Фоновый звук» — мужские голоса и гул, без музыки. Нажми красный треугольник.","The LOBOKAY radio. “Narrator”: the prologue in RU / EN / DE in one voice. “Background sound”: male voices and drone, no music. Press the red triangle.","Das LOBOKAY-Radio. „Sprecher“: der Prolog auf RU / EN / DE mit einer Stimme. „Hintergrundsound“: Männerstimmen und Dröhnen, ohne Musik. Drück das rote Dreieck."],
+m_voice:["Диктор","Narrator","Sprecher"],m_fon:["Фоновый звук","Background","Hintergrund"],rad_q:["«Когда-то верил человек, что он построил вечный век…» — пролог LOBOKAY, голос диктора.","“Once man believed he had built an eternal age…” — LOBOKAY prologue, narrator voice.","„Einst glaubte der Mensch, er habe ein ewiges Zeitalter erbaut…“ — LOBOKAY-Prolog, Sprecherstimme."],rad_dl:["Скачать голос и фон (ZIP)","Download voice & background (ZIP)","Stimme & Hintergrund laden (ZIP)"],
+s_cast:["Герои и антигерои","Heroes & antiheroes","Helden & Antihelden"],cast_intro:["Все персонажи без фона. Наведи курсор, чтобы увеличить; на телефоне — коснись. Лист персонажа открывается по клику.","All characters cut out. Hover to enlarge; tap on mobile. Click the character sheet to open it.","Alle Figuren freigestellt. Mit dem Cursor vergrößern, am Handy antippen. Charakterblatt per Klick öffnen."],
+s_tech:["Техника врага","Enemy vehicles","Feindliche Technik"],tech_intro:["Дроны и корабли в разных ракурсах, без фона.","Drones and ships from several angles, cut out.","Drohnen und Schiffe aus mehreren Winkeln, freigestellt."],
+s_kv:["Ключевые кадры","Key visuals","Key Visuals"],k4:["На карнизе · ночь","On the ledge · night","Auf dem Sims · Nacht"],k1:["Крыша · закат","Rooftop · sunset","Dach · Sonnenuntergang"],k2:["Портрет · дождь","Portrait · rain","Porträt · Regen"],k3:["Из дыма","Out of the smoke","Aus dem Rauch"],k5:["Широкий план","Wide shot","Totale"],k6:["Стая · лидер","Pack · leader","Rudel · Anführer"],
+s_dl:["Скачать","Download","Download"],dlb:["Скачать","Download","Laden"],d1:["Логотип без фона","Logo transparent","Logo transparent"],d2:["Логотип на графите","Logo on graphite","Logo auf Graphit"],d3:["Логотипы на выбор","Logo options","Logo-Varianten"],d4:["Аватар","Avatar","Avatar"],d5:["Обложка Facebook","Facebook cover","Facebook-Titelbild"],d6:["Обложка Erwachen","Erwachen cover","Erwachen-Cover"],d7:["Обложки постов и Reels","Post & Reels covers","Post- & Reels-Cover"],d8:["Хайлайты","Highlights","Highlights"],d9:["Листы персонажей","Character sheets","Charakterblätter"],d10:["Персонажи без фона","Characters cut out","Figuren freigestellt"],d11:["Техника без фона","Vehicles cut out","Technik freigestellt"],d12:["Ключевые кадры","Key visuals","Key Visuals"],d13:["Голос диктора и фон","Narrator & background","Sprecher & Hintergrund"],
+sheet_l:["Лист персонажа","Character sheet","Charakterblatt"],sheet_p:["Нажми, чтобы открыть лист целиком","Click to open the full sheet","Klicken, um das ganze Blatt zu öffnen"],
+ready:["— Готов —","— Ready —","— Bereit —"],dl_na:["Скачивание недоступно в этом просмотре","Downloads are not available in this view","Downloads sind in dieser Ansicht nicht verfügbar"],saved:["Сохранено: ","Saved: ","Gespeichert: "],building:["Сборка ","Packing ","Packe "]
+};
+const LANGS=["ru","en","de"];let L="ru";
+try{const s=localStorage.getItem('lbk_lang');if(LANGS.includes(s))L=s}catch(e){}
+const tr=k=>(T[k]||[k])[LANGS.indexOf(L)]||(T[k]||[k])[0];
+/* ---------- data ---------- */
+const CAST=[
+ {id:"lobokay",cls:"hero-c",bg:"LOBOKAY",name:{ru:'LOBOKAY <span>· Held</span>',en:'LOBOKAY <span>· Hero</span>',de:'LOBOKAY <span>· Held</span>'},d:{ru:"Главный герой. Белый волк в изумрудной броне, непрозрачный янтарный визор. Без хвоста и оружия.",en:"The hero. A white wolf in emerald armor with an opaque amber visor. No tail, no weapons.",de:"Der Held. Weißer Wolf in smaragdgrüner Rüstung, undurchsichtiges Bernstein-Visier. Kein Schwanz, keine Waffen."},sheet:"img/sheets/lobokay.jpg"},
+ {id:"scott",cls:"enemy",bg:"SCOTT",name:{ru:'SCOTT <span>· Schattenklinge</span>',en:'SCOTT <span>· Shadow Blade</span>',de:'SCOTT <span>· Schattenklinge</span>'},d:{ru:"Антигерой №1. Кибер-ниндзя: чёрная броня, капюшон и шарф, оранжевая полоса между глаз, одна катана.",en:"Antihero no. 1. Cyber ninja: black armor, hood and scarf, an orange stripe between the eyes, one katana.",de:"Antiheld Nr. 1. Cyber-Ninja: schwarze Rüstung, Kapuze und Schal, oranger Streifen zwischen den Augen, ein Katana."},sheet:"img/sheets/scott.jpg"},
+ {id:"plashch",cls:"enemy",bg:"GRON",name:{ru:'ГРОН <span>· Kommandant</span>',en:'GRON <span>· Commander</span>',de:'GRON <span>· Kommandant</span>'},d:{ru:"Антигерой №2. Командир лабораторий: чёрный кожаный плащ, броня, маска с вертикальной оранжевой полосой. Лица не видно никогда.",en:"Antihero no. 2. Commander of the labs: black leather trench coat, armor, a mask with a vertical orange stripe. His face is never seen.",de:"Antiheld Nr. 2. Kommandant der Labore: schwarzer Ledermantel, Panzerung, Maske mit senkrechtem orangem Streifen. Sein Gesicht ist nie zu sehen."},sheet:"img/sheets/plashch.jpg"},
+ {id:"grx07",cls:"enemy",bg:"GRX-07",name:{ru:'GRX-07 <span>· Sturmeinheit</span>',en:'GRX-07 <span>· Assault Unit</span>',de:'GRX-07 <span>· Sturmeinheit</span>'},d:{ru:"Штурмовой андроид врага. Серийный солдат, ходит отрядами.",en:"Enemy assault android. A serial trooper that moves in squads.",de:"Feindlicher Sturm-Android. Seriensoldat, tritt in Trupps auf."},sheet:"img/sheets/grx07.jpg"}
+];
+const VIEWS={ru:["Спереди","Три четверти","Профиль","Сзади"],en:["Front","Three-quarter","Profile","Back"],de:["Front","Dreiviertel","Profil","Rücken"]};
+const TECH=[
+ {id:"dron_pon",bg:"D-1",n:4,name:{ru:'ДРОН <span>· D-1</span>',en:'DRONE <span>· D-1</span>',de:'DROHNE <span>· D-1</span>'},d:{ru:"Дрон-вертолёт с двумя турбинами, десант в боковом проёме.",en:"Twin-turbine drone copter, troops in the side door.",de:"Drohnen-Helikopter mit zwei Turbinen, Trupp in der Seitentür."}},
+ {id:"dron_b",bg:"D-2",n:4,name:{ru:'ДРОН <span>· D-2</span>',en:'DRONE <span>· D-2</span>',de:'DROHNE <span>· D-2</span>'},d:{ru:"Тяжёлый дрон-вертолёт с бортовым стрелком.",en:"Heavy drone copter with a door gunner.",de:"Schwerer Drohnen-Helikopter mit Bordschütze."}},
+ {id:"korabl_desant_a",bg:"L-1",n:4,name:{ru:'ДЕСАНТНЫЙ КОРАБЛЬ <span>· L-1</span>',en:'DROPSHIP <span>· L-1</span>',de:'LANDUNGSSCHIFF <span>· L-1</span>'},d:{ru:"Десантный корабль с турбинами и задней рампой.",en:"Dropship with turbines and a rear ramp.",de:"Landungsschiff mit Turbinen und Heckrampe."}},
+ {id:"korabl_desant_b",bg:"L-2",n:4,name:{ru:'ДЕСАНТНЫЙ КОРАБЛЬ <span>· L-2</span>',en:'DROPSHIP <span>· L-2</span>',de:'LANDUNGSSCHIFF <span>· L-2</span>'},d:{ru:"Тяжёлый транспорт с четырьмя роторами.",en:"Heavy transport with four rotors.",de:"Schwerer Transporter mit vier Rotoren."}},
+ {id:"korabl_kosmos",bg:"K-1",n:3,name:{ru:'УДАРНЫЙ КОРАБЛЬ <span>· K-1</span>',en:'STRIKE SHIP <span>· K-1</span>',de:'KAMPFSCHIFF <span>· K-1</span>'},d:{ru:"Чёрный ударный корабль с жёлтыми огнями.",en:"Black strike ship with yellow lights.",de:"Schwarzes Kampfschiff mit gelben Lichtern."}},
+ {id:"korabl_kosmos_22",bg:"K-2",n:3,name:{ru:'УДАРНЫЙ КОРАБЛЬ <span>· K-2</span>',en:'STRIKE SHIP <span>· K-2</span>',de:'KAMPFSCHIFF <span>· K-2</span>'},d:{ru:"Вариант ударного корабля: сверху и сзади.",en:"Strike ship variant, top and rear views.",de:"Kampfschiff-Variante, Ansicht von oben und hinten."}}
+];
+const castBox=document.getElementById('castBox'),techBox=document.getElementById('techBox');
+function buildCast(){
+  castBox.innerHTML='';
+  CAST.forEach(c=>{const el=document.createElement('div');el.className='ch '+c.cls;
+    el.innerHTML=`<div class="bgname">${c.bg}</div><div class="ch-head"><h3>${c.name[L]}</h3><p>${c.d[L]}</p></div>
+    <div class="diag">${VIEWS[L].map((v,i)=>`<div class="u" tabindex="-1" style="margin-top:${i*46}px"><span class="glow"></span><img src="img/chars/${c.id}_${i+1}.webp" alt="${c.bg} ${v}" loading="lazy" draggable="false"><div class="cap"><b>${String(i+1).padStart(2,'0')}</b>${v}</div></div>`).join('')}</div>
+    <div class="sheetlink" data-full="${c.sheet}"><img src="${c.sheet}" alt="" loading="lazy"><div><span class="lbl">${tr('sheet_l')}</span><div class="mut" style="font-size:13px">${tr('sheet_p')}</div></div></div>`;
+    castBox.appendChild(el)});
+  techBox.innerHTML='';
+  TECH.forEach(c=>{const el=document.createElement('div');el.className='ch tech';
+    el.innerHTML=`<div class="bgname">${c.bg}</div><div class="ch-head"><h3>${c.name[L]}</h3><p>${c.d[L]}</p></div>
+    <div class="diag" style="--n:${c.n}">${Array.from({length:c.n},(_,i)=>`<div class="u" tabindex="-1" style="margin-top:${i*30}px"><span class="glow"></span><img src="img/tech/${c.id}_${i+1}.webp" alt="" loading="lazy" draggable="false"><div class="cap"><b>${String(i+1).padStart(2,'0')}</b>${c.bg}</div></div>`).join('')}</div>`;
+    techBox.appendChild(el)});
+  bindTouch();
+}
+function applyLang(){
+  document.documentElement.lang=L;
+  document.querySelectorAll('[data-i]').forEach(e=>{e.textContent=tr(e.dataset.i)});
+  document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('on',b.dataset.lang===L));
+  buildCast(); refreshRadioTitle();
+}
+document.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>{L=b.dataset.lang;try{localStorage.setItem('lbk_lang',L)}catch(e){}applyLang()});
+/* ---------- touch glow (no stuck outline) ---------- */
+try{if(matchMedia('(hover: none)').matches||matchMedia('(pointer: coarse)').matches)document.documentElement.classList.add('touch')}catch(e){}
+function bindTouch(){
+  document.querySelectorAll('.u').forEach(u=>{
+    u.addEventListener('touchstart',()=>{document.querySelectorAll('.u.act').forEach(x=>x!==u&&x.classList.remove('act'));u.classList.add('act')},{passive:true});
+    const off=()=>setTimeout(()=>u.classList.remove('act'),450);
+    u.addEventListener('touchend',off,{passive:true});u.addEventListener('touchcancel',off,{passive:true});
+  });
+}
+/* ---------- palette piano ---------- */
+const sws=[...document.querySelectorAll('#pal .sw')];
+function piano(i){sws.forEach((s,j)=>{s.classList.remove('k0','k1','k2');if(i<0)return;const d=Math.abs(i-j);if(d<3)s.classList.add('k'+d)})}
+sws.forEach((s,i)=>{s.addEventListener('mouseenter',()=>piano(i));s.addEventListener('touchstart',()=>piano(i),{passive:true})});
+document.getElementById('pal').addEventListener('mouseleave',()=>piano(-1));
+/* ---------- phones tilt on scroll ---------- */
+const phs=[...document.querySelectorAll('.ph-wrap')];let lastY=scrollY,vel=0,tiltRaf=null;
+function tilt(){const vh=innerHeight;phs.forEach(p=>{const r=p.getBoundingClientRect();const c=(r.top+r.height/2-vh/2)/vh;const dir=+p.dataset.dir;const rz=Math.max(-9,Math.min(9,dir*c*14+vel*0.25*dir));p.style.transform=`rotateZ(${rz.toFixed(2)}deg) rotateY(${(-dir*c*10).toFixed(2)}deg)`});vel*=0.85;if(Math.abs(vel)>0.05)tiltRaf=requestAnimationFrame(tilt);else tiltRaf=null}
+addEventListener('scroll',()=>{vel=Math.max(-30,Math.min(30,scrollY-lastY));lastY=scrollY;if(!tiltRaf)tiltRaf=requestAnimationFrame(tilt)},{passive:true});
+tilt();
+/* ---------- reticle cursor ---------- */
+const ret=document.getElementById('ret');let mx=-100,my=-100,cx=-100,cy=-100,cw=28,chh=28,tw=28,th=28,tx=-100,ty=-100,overEl=null;
+const SEL='img, figure, .u, .phone, .sw, .fb, .stage, .mylogo, .sheetlink img, .hl img';
+function pick(){const el=document.elementFromPoint(mx,my);overEl=el&&el.closest?el.closest(SEL):null;
+  if(overEl&&overEl.tagName==='IMG'&&overEl.closest('.u'))overEl=overEl.closest('.u').querySelector('img');
+  if(overEl){const r=overEl.getBoundingClientRect();tx=r.left-6;ty=r.top-6;tw=r.width+12;th=r.height+12;ret.classList.add('lock')}
+  else{tw=28;th=28;tx=mx-14;ty=my-14;ret.classList.remove('lock')}}
+let lastTouch=0;addEventListener('touchstart',()=>{lastTouch=Date.now();ret.style.opacity=0;overEl=null},{passive:true});
+addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||Date.now()-lastTouch<1500)return;mx=e.clientX;my=e.clientY;ret.style.opacity=1;pick()},{passive:true});
+addEventListener('wheel',()=>setTimeout(pick,30),{passive:true});
+addEventListener('scroll',()=>{if(mx>0)pick()},{passive:true});
+document.addEventListener('mouseleave',()=>ret.style.opacity=0);
+(function loop(){cx+=(tx-cx)*.22;cy+=(ty-cy)*.22;cw+=(tw-cw)*.22;chh+=(th-chh)*.22;ret.style.transform=`translate(${cx}px,${cy}px)`;ret.style.width=cw+'px';ret.style.height=chh+'px';requestAnimationFrame(loop)})();
+setInterval(()=>{if(overEl)pick()},200);
+/* ---------- lightbox ---------- */
+const lb=document.getElementById('lb');
+document.addEventListener('click',e=>{
+  const f=e.target.closest('[data-full],.covers figure,.reels figure,.kv figure,.pick figure');
+  if(!f||f.closest('.lb'))return;
+  const src=f.dataset.full||f.querySelector('img')?.src;if(!src)return;
+  lb.querySelector('img').src=src;lb.hidden=false;
+});
+lb.onclick=()=>lb.hidden=true;
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.hidden=true});
+/* ---------- radio ---------- */
+const TR={RU:{s:"audio/DIKTOR_RU.mp3",f:87.6},EN:{s:"audio/DIKTOR_EN.mp3",f:90.6},DE:{s:"audio/DIKTOR_DE.mp3",f:93.6},
+ F1:{s:"audio/FON_NASHID.mp3",f:102.0}};
+const ORDER=["RU","EN","DE","F1"];const FONS=ORDER.filter(k=>k[0]==='F');const isF=k=>k[0]==='F';
+const NAMES={RU:["Диктор · русский","Narrator · Russian","Sprecher · Russisch"],EN:["Диктор · английский","Narrator · English","Sprecher · Englisch"],DE:["Диктор · немецкий","Narrator · German","Sprecher · Deutsch"],
+ F1:["Фоновый звук · мужской гул","Background · male drone","Hintergrund · Männerstimmen"]};
+const audio=new Audio();audio.preload='none';let cur=null,mode='voice',vl='RU',fv='F1';
+const box=document.getElementById('radioBox'),dial=document.getElementById('dial'),needle=document.getElementById('needle');
+const fmt=s=>isFinite(s)?Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'):'0:00';
+const pos=f=>((f-86.5)/(109-86.5)*100);
+ORDER.forEach(k=>{const s=document.createElement('span');s.className='st';s.style.left=pos(TR[k].f)+'%';s.innerHTML=TR[k].f.toFixed(1)+'<small>'+k+'</small>';s.onclick=()=>tune(k,true);s.dataset.k=k;dial.appendChild(s)});
+const vu=document.getElementById('vu');for(let i=0;i<14;i++)vu.appendChild(document.createElement('i'));
+const PLAY='<polygon points="22,12 88,50 22,88" fill="#D3261E"/><polygon points="22,12 88,50 22,88" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="2"/>';
+const PAUSE='<rect x="24" y="16" width="18" height="68" fill="#D3261E"/><rect x="58" y="16" width="18" height="68" fill="#D3261E"/>';
+const icon=document.getElementById('playIcon');icon.innerHTML=PLAY;
+function refreshRadioTitle(){document.getElementById('rTitle').textContent=cur?NAMES[cur][LANGS.indexOf(L)]:tr('ready')}
+function setKeys(){document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
+  document.querySelectorAll('[data-vl]').forEach(b=>{b.classList.toggle('on',b.dataset.vl===vl);b.hidden=mode!=='voice'});
+  document.querySelectorAll('[data-fv]').forEach(b=>{b.classList.toggle('on',b.dataset.fv===fv);b.hidden=mode!=='fon'})}
+function tune(k,play){cur=k;if(isF(k)){mode='fon';fv=k}else{mode='voice';vl=k}setKeys();audio.loop=isF(k);
+  needle.style.left=pos(TR[k].f)+'%';document.getElementById('rFq').textContent=TR[k].f.toFixed(1);refreshRadioTitle();
+  dial.querySelectorAll('.st').forEach(s=>s.classList.toggle('cur',s.dataset.k===k));
+  audio.src=TR[k].s;if(play)audio.play().catch(()=>{})}
+document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;tune(mode==='fon'?fv:vl,true)});
+document.querySelectorAll('[data-fv]').forEach(b=>b.onclick=()=>tune(b.dataset.fv,true));
+document.querySelectorAll('[data-vl]').forEach(b=>b.onclick=()=>{if(mode!=='voice')return;tune(b.dataset.vl,true)});
+document.getElementById('rPlay').onclick=()=>{if(!cur){tune(mode==='fon'?fv:vl,true);return}audio.paused?audio.play().catch(()=>{}):audio.pause()};
+const step=d=>{let i=ORDER.indexOf(cur||'RU');i=(i+d+ORDER.length)%ORDER.length;tune(ORDER[i],true)};
+document.getElementById('rNext').onclick=()=>step(1);document.getElementById('rPrev').onclick=()=>step(-1);
+document.getElementById('rProg').onclick=e=>{if(!audio.duration)return;const r=e.currentTarget.getBoundingClientRect();audio.currentTime=(e.clientX-r.left)/r.width*audio.duration};
+let vuT;function anim(){const bars=vu.children;for(let i=0;i<bars.length;i++)bars[i].style.height=(audio.paused?8:(15+Math.random()*85*(1-i/22)))+'%';vuT=setTimeout(anim,110)}
+function sync(){const on=!audio.paused;box.classList.toggle('on',on);icon.innerHTML=on?PAUSE:PLAY}
+audio.addEventListener('play',()=>{sync();clearTimeout(vuT);anim()});audio.addEventListener('pause',sync);audio.addEventListener('ended',sync);
+audio.addEventListener('timeupdate',()=>{document.querySelector('#rProg i').style.width=(audio.currentTime/(audio.duration||1)*100)+'%';document.getElementById('rCur').textContent=fmt(audio.currentTime);document.getElementById('rDur').textContent=fmt(audio.duration)});
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{document.getElementById('radio').scrollIntoView({behavior:'smooth'});tune(b.dataset.go==='fon'?fv:vl,true)});
+setKeys();
+/* ---------- downloads ---------- */
+const toastEl=document.getElementById('toast');let tt;
+function toast(m){toastEl.textContent=m;toastEl.hidden=false;clearTimeout(tt);tt=setTimeout(()=>toastEl.hidden=true,3500)}
+let dlns=null;
+const plainSave={save:async({filename,data})=>{const u=URL.createObjectURL(data);const a=document.createElement('a');a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),8000);return{status:'saved'}}};
+const inArtifact=!!(window.claude&&window.claude.use);
+if(!inArtifact)dlns=plainSave;
+(async()=>{if(!inArtifact)return;try{dlns=await window.claude.use('downloads')}catch(e){}
+  if(!dlns)document.querySelectorAll('[data-dl],[data-zip]').forEach(b=>{b.disabled=true;b.title=tr('dl_na')})})();
+document.querySelectorAll('[data-dl]').forEach(b=>b.addEventListener('click',async()=>{
+  if(!dlns){toast(tr('dl_na'));return}
+  const url=b.dataset.dl,name=url.split('/').pop(),lbl=b.textContent;b.disabled=true;b.textContent='…';
+  try{const r=await fetch(url);if(!r.ok)throw new Error(r.status);const res=await dlns.save({filename:name,data:await r.blob()});if(res.status==='saved')toast(tr('saved')+name)}
+  catch(e){if(e&&e.code==='declined'){}else toast('✕ '+name)}
+  finally{b.disabled=false;b.textContent=lbl}}));
+document.querySelectorAll('[data-zip]').forEach(b=>b.addEventListener('click',async()=>{
+  if(!dlns){toast(tr('dl_na'));return}
+  if(!window.JSZip){toast('ZIP ✕');return}
+  const name=b.dataset.zip,list=BUNDLES[name]||[],lbl=b.textContent;b.disabled=true;
+  try{const z=new JSZip();let i=0;
+    for(const u of list){b.textContent=tr('building')+(++i)+'/'+list.length;const r=await fetch(u);if(!r.ok)throw new Error(r.status);z.file(u.split('/').pop(),await r.blob())}
+    b.textContent='ZIP…';const blob=await z.generateAsync({type:'blob',compression:'STORE'});
+    const res=await dlns.save({filename:name+'.zip',data:blob});if(res.status==='saved')toast(tr('saved')+name+'.zip')}
+  catch(e){if(e&&e.code==='declined'){}else toast('✕ '+name)}
+  finally{b.disabled=false;b.textContent=lbl}}));
+applyLang();
+</script>
+
+</body>
+</html>
