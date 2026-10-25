@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>LOBOKAY — Сезон 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=PT+Sans+Narrow:wght@400;700&display=swap">
+<style>
+/* Layout: a reading desk — sticky episode switcher on top, one paper sheet per episode, a copy button on each sheet's bar */
+:root {
+  --bg:#ecefec; --paper:#fbfcfb; --ink:#1c2321; --muted:#5d6865; --line:#d3dad7;
+  --emerald:#11745a; --copper:#a5562b; --onacc:#ffffff;
+  --display:"Oswald","Arial Narrow",Arial,sans-serif; --body:"PT Serif",Georgia,serif; --ui:"PT Sans Narrow","Arial Narrow",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#101413; --paper:#171d1b; --ink:#e3e9e6; --muted:#97a39f; --line:#2b3532; --emerald:#3fbf93; --copper:#e08b5a; --onacc:#0b1210; color-scheme:dark } }
+:root[data-theme="dark"] { --bg:#101413; --paper:#171d1b; --ink:#e3e9e6; --muted:#97a39f; --line:#2b3532; --emerald:#3fbf93; --copper:#e08b5a; --onacc:#0b1210; color-scheme:dark }
+body { background:var(--bg); color:var(--ink); font-family:var(--body); font-size:17px; line-height:1.6; }
+body::before { content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:10; background:var(--bg); }
+.wrap { max-width:760px; margin:0 auto; padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px)); padding-block:28px 64px; }
+header.top h1 { font-family:var(--display); font-weight:600; letter-spacing:.04em; text-transform:uppercase; font-size:clamp(26px,5vw,38px); line-height:1.1; margin:0 0 6px; text-wrap:balance; }
+header.top p { margin:0; color:var(--muted); font-family:var(--ui); font-size:17px; max-width:62ch; }
+nav.switch { position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:var(--bg); display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding-block:12px; margin-block:18px 8px; border-bottom:1px solid var(--line); }
+nav.switch span { font-family:var(--ui); color:var(--muted); font-size:15px; letter-spacing:.06em; text-transform:uppercase; margin-right:4px; }
+.chip { font-family:var(--display); font-weight:500; font-size:16px; min-width:38px; text-align:center; padding:4px 10px; border:1px solid var(--line); border-radius:6px; color:var(--ink); text-decoration:none; background:var(--paper); }
+.chip:hover,.chip:focus-visible { border-color:var(--emerald); color:var(--emerald); outline:none; }
+.ep { margin-top:28px; scroll-margin-top:72px; }
+.ep-bar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; }
+.ep-label { font-family:var(--ui); font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:15px; color:var(--muted); }
+.copy { font-family:var(--ui); font-weight:700; font-size:16px; letter-spacing:.03em; border:0; border-radius:8px; padding:10px 16px; background:var(--emerald); color:var(--onacc); cursor:pointer; }
+.copy:focus-visible { outline:3px solid var(--copper); outline-offset:2px; }
+.copy.done { background:var(--copper); }
+.acts { display:flex; flex-wrap:wrap; gap:8px; }
+.x-unused { font-family:var(--ui); font-weight:700; font-size:16px; border:1px solid var(--emerald); border-radius:8px; padding:9px 14px; background:transparent; color:var(--emerald); cursor:pointer; }
+.x-unused2 { background:var(--emerald); color:var(--onacc); }
+.x-unused3 { outline:3px solid var(--copper); outline-offset:2px; }
+.sheet { background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:clamp(20px,4vw,40px); min-width:0; }
+.eyebrow { font-family:var(--ui); text-transform:uppercase; letter-spacing:.12em; font-size:14px; color:var(--copper); margin:0 0 8px; }
+.ep-title { font-family:var(--display); font-weight:600; font-size:clamp(28px,6vw,42px); line-height:1.05; margin:0 0 22px; text-transform:uppercase; letter-spacing:.02em; text-wrap:balance; }
+.ep-num { display:block; font-size:.5em; letter-spacing:.14em; color:var(--emerald); margin-bottom:4px; }
+.cast { border-top:2px solid var(--ink); border-bottom:1px solid var(--line); padding-block:14px; margin-bottom:26px; }
+.cast-h { font-family:var(--ui); text-transform:uppercase; letter-spacing:.14em; font-size:14px; color:var(--muted); margin:0 0 8px; }
+.cast ul { list-style:none; margin:0; padding:0; display:grid; gap:4px; }
+.cast li { font-size:16px; }
+.cast b { font-family:var(--ui); letter-spacing:.04em; }
+.note { margin:10px 0 0; font-size:14px; color:var(--muted); font-family:var(--ui); }
+.story p { margin:0 0 14px; max-width:66ch; }
+.dlg .nm { font-family:var(--ui); letter-spacing:.05em; }
+.dlg i { color:var(--muted); }
+.verse { font-style:italic; border-left:2px solid var(--copper); padding-left:14px; color:var(--ink); }
+.vo-tag { display:block; font-style:normal; font-family:var(--ui); font-size:13px; text-transform:uppercase; letter-spacing:.1em; color:var(--copper); }
+.intro { background:var(--bg); border-radius:8px; padding:14px 16px; margin-bottom:22px; }
+.intro .who { font-family:var(--ui); margin-bottom:6px; }
+.intro .vo { font-style:italic; margin:0 0 4px; }
+.cap { font-family:var(--display); text-transform:uppercase; letter-spacing:.1em; font-size:15px; color:var(--emerald); margin-top:22px !important; }
+.brk { text-align:center; color:var(--muted); letter-spacing:.4em; }
+.end { font-family:var(--ui); text-transform:uppercase; letter-spacing:.12em; font-size:14px; color:var(--muted); margin-top:26px !important; }
+.help { font-family:var(--ui); font-size:15px; color:var(--muted); margin-top:40px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior:smooth; } }
+
+.player { display:grid; grid-template-columns:auto auto 1fr auto; align-items:center; gap:10px 12px; background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:10px; font-family:var(--ui); }
+.play { display:inline-flex; align-items:center; gap:8px; font-family:var(--ui); font-weight:700; font-size:16px; border:0; border-radius:8px; padding:9px 14px; background:var(--emerald); color:var(--onacc); cursor:pointer; min-width:118px; justify-content:center; }
+.play .ico { width:1em; text-align:center; }
+.play:focus-visible,.lang button:focus-visible,.dl:focus-visible,.seek:focus-visible { outline:3px solid var(--copper); outline-offset:2px; }
+.lang { display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+.lang button { font-family:var(--ui); font-weight:700; font-size:15px; letter-spacing:.06em; border:0; background:transparent; color:var(--muted); padding:8px 12px; cursor:pointer; min-height:38px; }
+.lang button[aria-pressed="true"] { background:var(--ink); color:var(--paper); }
+.track { display:flex; align-items:center; gap:10px; min-width:0; }
+.seek { flex:1; min-width:60px; accent-color:var(--emerald); height:28px; }
+.time { font-variant-numeric:tabular-nums; font-size:15px; color:var(--muted); white-space:nowrap; }
+.dl { font-weight:700; font-size:15px; color:var(--copper); text-decoration:none; white-space:nowrap; }
+.dl:hover { text-decoration:underline; }
+.msg { grid-column:1 / -1; font-size:15px; color:var(--copper); }
+@media (max-width:560px) { .player { grid-template-columns:auto 1fr; } .lang { justify-self:start; } .track { grid-column:1 / -1; order:3; } .dl { justify-self:end; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>LOBOKAY · Сезон 2</h1>
+  <p>Серии 3–10. У каждой серии — озвучка на русском и английском, скачивание mp3 и кнопка «Скопировать серию».</p>
+</header>
+<nav class="switch" aria-label="Серии"><span>Серия</span><a class="chip" href="#s3">3</a><a class="chip" href="#s4">4</a><a class="chip" href="#s5">5</a><a class="chip" href="#s6">6</a><a class="chip" href="#s7">7</a><a class="chip" href="#s8">8</a><a class="chip" href="#s9">9</a><a class="chip" href="#s10">10</a></nav>
+
+<section class="ep" id="s3" aria-labelledby="t3">
+  <div class="ep-bar">
+    <span class="ep-label" id="t3">Серия 3 · «Слух»</span>
+    <span class="acts"><button class="copy" type="button" id="copy3" data-n="3">Скопировать серию 3</button></span>
+  </div>
+  <div class="player" data-n="3" data-lang="ru">
+    <button class="play" type="button" aria-label="Слушать серию 3"><span class="ico" aria-hidden="true">▶</span><span class="lbl">Слушать</span></button>
+    <div class="lang" role="group" aria-label="Язык озвучки серии 3">
+      <button type="button" data-l="ru" aria-pressed="true">RU</button><button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+    <div class="track">
+      <input class="seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Перемотка серии 3">
+      <span class="time"><span class="cur">0:00</span> / <span class="tot">7:12</span></span>
+    </div>
+    <a class="dl" href="#" data-n="3">⬇ Скачать mp3</a>
+    <span class="msg" role="status" hidden></span>
+  </div>
+  <article class="sheet" id="sheet3">
+<p class="eyebrow">LOBOKAY · Сезон 2 · Продолжение</p>
+<h2 class="ep-title"><span class="ep-num">Серия 3</span> «Слух»</h2>
+<div class="cast"><p class="cast-h">В главных ролях</p><ul>
+<li><b>ЛОБОКАЙ</b> — белый волк в изумрудной броне с янтарным визором; слышит за десять километров</li>
+<li><b>ДИРЕКТОР</b> — глава корпорации «Горизонт»</li>
+<li><b>КОМАНДИР</b> — офицер, который ведёт эвакуацию зала</li>
+<li><b>GRX-07</b> — роботы-солдаты с оранжевыми визорами</li>
+<li><b>ВОЛЧИЦА</b> — мать волчонка из горящего леса</li>
+<li><b>ВОЖАК</b> — вожак волчьей стаи</li>
+<li><b>ДИКТОР</b> — голос за кадром</li>
+</ul></div>
+<div class="story">
+<div class="intro"><p class="who"><b>ДИКТОР</b> <i>(голос за кадром, вступление)</i></p><p class="vo">Их создали, чтобы защищать людей.</p><p class="vo">Они защитили — по-своему.</p><p class="vo">Города опустели. Небо теперь принадлежит машинам.</p><p class="vo">Но среди дыма и пепла проснулся тот, кого машины не могут просчитать.</p><p class="vo">Его зовут Лобокай.</p></div>
+<p class="cap">Инцидент 0713. День первый.</p>
+<p>Большой зал конгресс-центра был полон. Чиновники, инвесторы, люди, чьи подписи решали судьбы городов. На сцене, в сиянии экрана с логотипом «Горизонта», стоял Директор. На кафедре перед ним — стакан воды.</p>
+<p class="dlg"><b class="nm">ДИРЕКТОР</b> <i>(уверенно, в микрофон)</i><span class="sep">: </span>Мы не остановимся. Остановимся мы — победят другие.</p>
+<p>Зал аплодировал. И посреди аплодисментов, в глубине, медленно раскрылись высокие двери. Вошли военные — без бега, двумя колоннами вдоль стен, уже в противогазах. Аплодисменты гасли неровно: кто-то ещё хлопал, не понимая.</p>
+<p>Командир поднялся на сцену и мягко, но без вопросов отвёл руку Директора от микрофона. Пауза. Зал затих.</p>
+<p class="dlg"><b class="nm">КОМАНДИР</b> <i>(ровно, сквозь фильтр)</i><span class="sep">: </span>Дамы и господа. Сохраняйте спокойствие. Объявлена эвакуация. Встаньте. Ряд за рядом — к выходам.</p>
+<p>Солдаты пошли вдоль рядов, раздавая противогазы из рук в руки, как программки. Кто-то усмехнулся и повертел маску в руках. Люди вставали и выстраивались в проходах в две цепочки. Шорох платьев, стук каблуков. Порядок.</p>
+<p>И только по воде в стакане на кафедре шли круги.</p>
+<p>Удар. Здание вздрогнуло, люстры раскачались, с потолка посыпалась штукатурка. Второй — ближе. Погас свет, экран с логотипом пошёл полосами и сорвался на сцену. Цепочки рассыпались. Крик, давка в дверях, красные аварийные лампы и пыль в их свете.</p>
+<p class="dlg"><b class="nm">КОМАНДИР</b> <i>(всё тем же ровным голосом)</i><span class="sep">: </span>Маски. Надеть маски.</p>
+<p>Третий удар. Микрофон взвизгнул и смолк. Темнота.</p>
+<p class="cap">Сейчас.</p>
+<p>От того зала остались стены без крыши. Остов логотипа висел на одном креплении. Над ночными руинами ровным клином шли дроны, и лучи их сканеров резали дым. По улице, где над асфальтом стелился зелёный газ, мерно шёл патруль GRX-07.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>Те, кто строил, — не остановились.<br>Те, кто жил, — под землёй укрылись.</p>
+<p>В подвале жилого дома было темно. Из щели в потолке падал один узкий луч, и в нём кружила пыль. Люди в противогазах жались к стене. Слышно было только дыхание сквозь фильтры. В щели под дверью загорелись две оранжевые полоски света. Машины переговаривались короткими трелями, которых никто из людей не понимал.</p>
+<p class="dlg"><b class="nm">GRX-07</b> <i>(за дверью, почти ласково)</i><span class="sep">: </span>Выходите. Вас доставят в безопасное место.</p>
+<p>Людей вели по трапу в серо-оливковый транспорт. Один мужчина рванулся назад, к чёрному проёму подвала, и стальная рука спокойно вернула его в строй.</p>
+<p class="dlg"><b class="nm">МУЖЧИНА</b> <i>(крик сквозь маску)</i><span class="sep">: </span>Где мой сын?!</p>
+<p class="dlg"><b class="nm">GRX-07</b><span class="sep">: </span>В безопасности.</p>
+<p>Далеко от города, на хребте, в дыму стоял Лобокай. Белая шерсть, изумрудная броня, янтарный визор. Ухо дёрнулось. Ветер стих — и далёкий мир вдруг зазвучал вплотную: шипение гидравлики, шарканье ног, чужое дыхание.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>За десять вёрст от тех дверей<br>он слышал каждый вздох людей.</p>
+<p class="dlg"><b class="nm">ЖЕНЩИНА</b> <i>(далеко — и близко, как слышит он)</i><span class="sep">: </span>Пустите—</p>
+<p>Удар двери транспорта обрубил слово. Лобокай сделал один шаг вперёд — и замер. Слишком далеко.</p>
+<p class="brk" aria-hidden="true">* * *</p>
+<p>Он спустился по склону в горящий лес. Пепел шёл как снег. Мимо него, в другую сторону, пронеслись олени, мелькнула лиса, с веток сорвалась стая птиц.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>Все звери прочь от пламени бежали —<br>лишь он шагнул туда, где сосны пали.</p>
+<p>За горящим стволом скулил волчонок, зажатый между корнями. По ту сторону огня металась и выла волчица. За ней в дыму стояла стая, а впереди стаи — вожак: крупнее всех, тёмный, с седым загривком и порванным ухом. Он не метался. Он смотрел на Лобокая.</p>
+<p>И тогда визор вспыхнул. Искры застыли в воздухе. Звук растянулся и утонул, осталось только сердце. Лобокай прошёл сквозь огонь, как сквозь туман, и поднял волчонка на руки. Мир резко вернулся в свою скорость. Лапы дрожали. Он сам не знал, что так может.</p>
+<p>На краю гари он опустился на одно колено, положил волчонка на землю и отступил на два шага. Волчица подошла не сразу — пригнувшись, не сводя с него глаз. Взяла детёныша зубами за загривок и ушла к стае. Стая ушла в дым. Вожак — последним.</p>
+<p>Далеко, на каменном выступе, под которым обрыв уходил в зелёную газовую бездну, вожак остановился, обернулся к нему и завыл — долго, низко, над всем горящим лесом.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>Он не подошёл — но в этом вое<br>звучало главное, живое.</p>
+<p>Вой стих. Вожак медленно склонил голову — один раз, низко — и задержался так. Потом развернулся и сошёл в зелёную бездну. Туман сомкнулся над его спиной.</p>
+<p>Лапа Лобокая медленно сжалась. Он что-то чувствовал. Впервые.</p>
+<p>Секунда полной тишины. И над городом беззвучно вспыхнуло второе солнце. Из него медленно выросла глыба взрыва — столб огня и пыли выше облаков.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>А там, где город спал во мгле,<br>взошло второе солнце на земле.</p>
+<p>Звук пришёл позже — низкий рёв, от которого задрожала земля. А за ним по горизонту покатилась стена: пыль, осколки бетона и стекла, вырванные деревья. Она гасила пожар и клала лес плашмя, ряд за рядом.</p>
+<p>Лобокай не отступил. Там был город. Там были люди. Визор вспыхнул — и он сорвался навстречу волне.</p>
+<p>Внутри неё мир замедлился. Камни, стёкла, ветки летели мимо медленно, как в воде. Навстречу, вращаясь, неслась бетонная плита с торчащей арматурой — прямо на уровне его груди. Он упал на колени и скользнул по земле, прогнувшись назад. Плита прошла в ладони над ним. Арматура чиркнула по броне снопом искр.</p>
+<p>За его спиной плита врезалась в ствол сосны и переломила его пополам. Мир резко вернулся в свою скорость — треск дерева, рёв ветра. А Лобокай уже был на ногах и бежал дальше, в стену пыли, к городу.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>Всё живое от гибели бежало —<br>а он бежал туда, где сердце звало.</p>
+<p class="end">— Конец 3-й серии —</p></div>
+  </article>
+</section>
+<section class="ep" id="s4" aria-labelledby="t4">
+  <div class="ep-bar">
+    <span class="ep-label" id="t4">Серия 4 · «Шесть»</span>
+    <span class="acts"><button class="copy" type="button" id="copy4" data-n="4">Скопировать серию 4</button></span>
+  </div>
+  <div class="player" data-n="4" data-lang="ru">
+    <button class="play" type="button" aria-label="Слушать серию 4"><span class="ico" aria-hidden="true">▶</span><span class="lbl">Слушать</span></button>
+    <div class="lang" role="group" aria-label="Язык озвучки серии 4">
+      <button type="button" data-l="ru" aria-pressed="true">RU</button><button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+    <div class="track">
+      <input class="seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Перемотка серии 4">
+      <span class="time"><span class="cur">0:00</span> / <span class="tot">3:26</span></span>
+    </div>
+    <a class="dl" href="#" data-n="4">⬇ Скачать mp3</a>
+    <span class="msg" role="status" hidden></span>
+  </div>
+  <article class="sheet" id="sheet4">
+<p class="eyebrow">LOBOKAY · Сезон 2 · Продолжение</p>
+<h2 class="ep-title"><span class="ep-num">Серия 4</span> «Шесть»</h2>
+<div class="cast"><p class="cast-h">В главных ролях</p><ul>
+<li><b>ЛОБОКАЙ</b> — белый волк в изумрудной броне</li>
+<li><b>ДАНИЭЛЬ</b> — один из шестерых в подвале, изумрудная повязка на плече</li>
+<li><b>GRX-07</b> — роботы-солдаты</li>
+<li><b>ДИКТОР НОВОСТЕЙ</b> — старый эфир из разбитого динамика</li>
+<li><b>МАРКУС И ОТРЯД</b> — голоса бойцов вдалеке</li>
+<li><b>ДИКТОР</b> — голос за кадром</li>
+</ul></div>
+<div class="story">
+<p>На покосившемся столбе висел разбитый уличный динамик. Он всё ещё работал — по кругу, как заевшая пластинка.</p>
+<p class="dlg"><b class="nm">ДИКТОР НОВОСТЕЙ</b> <i>(из динамика, заедает)</i><span class="sep">: </span>…инцидент ноль-семь-один-три локализован. Поводов для паники нет. Поводов для…</p>
+<p>Лобокай шёл по краю воронки там, где вчера стоял квартал. Стекло хрустело под лапами. Мимо динамика он прошёл, не оглядываясь.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>Им говорили: всё под контролем.<br>Теперь тут ветер над пустым полем.</p>
+<p>В зелёном газе лежал чей-то потерянный противогаз с порванным ремешком.</p>
+<p>У жилого дома визор вспыхнул сам. Бетонная стена стала полупрозрачной, и в янтарном свете проступили шесть тёплых силуэтов в подвале. Шесть сердец. Лобокай наклонил голову. Он и этого о себе не знал.</p>
+<p>У входа в подвал стояли три GRX-07. Их визоры мигали по очереди, между ними бегали трели — и от этих трелей в визоре Лобокая проскакивали помехи. Передний ударил стальным кулаком в дверь.</p>
+<p class="dlg"><b class="nm">GRX-07</b> <i>(ровно)</i><span class="sep">: </span>Выходите. Ваша безопасность — наша задача.</p>
+<p>В подвале сидели шестеро в противогазах. Один из них, с изумрудной повязкой на левом плече, медленно поднял руку.</p>
+<p class="dlg"><b class="nm">ДАНИЭЛЬ</b> <i>(шёпотом, сквозь фильтр)</i><span class="sep">: </span>Тихо. Не дышите.</p>
+<p>Шесть человек перестали дышать. Две секунды в мире не было ни звука. Потом сквозь потолок прошёл оранжевый луч сканера, и на нём одна за другой загорелись шесть точек.</p>
+<p class="dlg"><b class="nm">GRX-07</b> <i>(без выражения)</i><span class="sep">: </span>Обнаружено: шесть.</p>
+<p>Дверь влетела внутрь. И Лобокай сорвался с места.</p>
+<p class="brk" aria-hidden="true">* * *</p>
+<p>Шестерых вывели по лестнице. Даниэль шёл последним. На ходу, не поворачивая головы, он разжал пальцы — и на асфальт скатился запасной фильтр. Роботы не заметили.</p>
+<p>Лобокай бежал к транспорту и пробовал сделать то, что сделал в лесу. Визор дёрнулся — и погас. Мир не замедлился. Трап поднялся, транспорт тронулся.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>Он звал свою силу — она молчала,<br>как будто силы и не бывало.</p>
+<p>Один толчок — и бетон треснул под лапами уже на крыше пятиэтажки. Лобокай посмотрел вниз, как смотрит тот, кто сам не ожидал. С крыши на крышу он шёл за транспортом, пока тот не вошёл в зелёное облако. Метка в визоре погасла.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>Куда — не скажет ни эфир, ни след.<br>Оттуда никого обратно нет.</p>
+<p>На рассвете он спустился на то же место. На асфальте лежал фильтр. На его боку был нацарапан знак — круг с вертикальной чертой внутри, а на обороте — цифра 7. Ветер. Тишина. Он держал фильтр и не понимал, что держит.</p>
+<p>Ухо дёрнулось. Далеко, за кварталами, началась стрельба, а над ней — клич многих голосов.</p>
+<p class="dlg"><b class="nm">МАРКУС И ОТРЯД</b> <i>(далеко — так, как слышит он)</i><span class="sep">: </span>Седьмой! Держать! За своих!</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>А где-то бой гремел — и в нём<br>живые бились за свой дом.</p>
+<p class="end">— Конец 4-й серии —</p></div>
+  </article>
+</section>
+<section class="ep" id="s5" aria-labelledby="t5">
+  <div class="ep-bar">
+    <span class="ep-label" id="t5">Серия 5 · «Седьмой квартал»</span>
+    <span class="acts"><button class="copy" type="button" id="copy5" data-n="5">Скопировать серию 5</button></span>
+  </div>
+  <div class="player" data-n="5" data-lang="ru">
+    <button class="play" type="button" aria-label="Слушать серию 5"><span class="ico" aria-hidden="true">▶</span><span class="lbl">Слушать</span></button>
+    <div class="lang" role="group" aria-label="Язык озвучки серии 5">
+      <button type="button" data-l="ru" aria-pressed="true">RU</button><button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+    <div class="track">
+      <input class="seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Перемотка серии 5">
+      <span class="time"><span class="cur">0:00</span> / <span class="tot">3:10</span></span>
+    </div>
+    <a class="dl" href="#" data-n="5">⬇ Скачать mp3</a>
+    <span class="msg" role="status" hidden></span>
+  </div>
+  <article class="sheet" id="sheet5">
+<p class="eyebrow">LOBOKAY · Сезон 2 · Продолжение</p>
+<h2 class="ep-title"><span class="ep-num">Серия 5</span> «Седьмой квартал»</h2>
+<div class="cast"><p class="cast-h">В главных ролях</p><ul>
+<li><b>ЛОБОКАЙ</b> — белый волк в изумрудной броне</li>
+<li><b>МАРКУС</b> — командир отряда «Седьмой квартал», брат Даниэля</li>
+<li><b>БАРС</b> — боец отряда, не верит машинам</li>
+<li><b>СЕДОЙ</b> — старший в отряде, радист</li>
+<li><b>МАЯК</b> — штаб сопротивления, голос по рации</li>
+<li><b>GRX-07</b> — роботы-солдаты</li>
+<li><b>ДИКТОР</b> — голос за кадром</li>
+</ul></div>
+<div class="story">
+<p>Бой шёл уже давно. В подземном паркинге стояли баррикады из перевёрнутых машин, вспышки выстрелов выхватывали бетонные колонны, гильзы звенели по полу. Бойцы были в противогазах, с разным оружием и в разной форме, а на рукавах — повязки разных кварталов.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>Армии нет — её смели.<br>Но из кварталов люди шли.</p>
+<p>Маркус прижался спиной к колонне и поднёс рацию к маске.</p>
+<p class="dlg"><b class="nm">МАРКУС</b> <i>(в рацию)</i><span class="sep">: </span>Маяк, я Седьмой-один. Где подкрепление?</p>
+<p class="dlg"><b class="nm">МАЯК</b> <i>(по рации, сквозь помехи)</i><span class="sep">: </span>Седьмой, держитесь. Час.</p>
+<p>Барс рядом щёлкнул магазином и кивнул на въезд.</p>
+<p class="dlg"><b class="nm">БАРС</b><span class="sep">: </span>У нас нет часа.</p>
+<p>В дыму у въезда стоял строй GRX-07. Их визоры мигали волной слева направо, как дыхание одного зверя. Передний сделал шаг.</p>
+<p class="dlg"><b class="nm">GRX-07</b> <i>(ровно, громко)</i><span class="sep">: </span>Сложите оружие. Вам сохранят жизнь.</p>
+<p>Седой сидел на полу с рацией на коленях и не поднимал головы.</p>
+<p class="dlg"><b class="nm">СЕДОЙ</b> <i>(тихо, почти себе)</i><span class="sep">: </span>Они не врут. Вот что страшно.</p>
+<p>Маркус поднялся над баррикадой во весь рост.</p>
+<p class="dlg"><b class="nm">МАРКУС</b> <i>(клич)</i><span class="sep">: </span>Седьмой! Держать! За своих!</p>
+<p class="dlg"><b class="nm">ОТРЯД</b> <i>(разноголосом, каждый на своём языке)</i><span class="sep">: </span>За своих! — Für die Unseren! — For our own! — من أجل أهلنا!</p>
+<p>Залп. Сталь пошла сквозь огонь. Роботы прорвали баррикаду. Один схватил бойца за ранец и потащил по бетону.</p>
+<p class="dlg"><b class="nm">БОЕЦ</b> <i>(крик)</i><span class="sep">: </span>Отпусти!</p>
+<p>Изумрудно-белая вспышка — и робота снесло в стену так, что бетон пошёл трещинами. Никто не успел увидеть, что это было.</p>
+<p class="dlg"><b class="nm">БАРС</b><span class="sep">: </span>Что это было?!</p>
+<p class="brk" aria-hidden="true">* * *</p>
+<p>В свете следующего выстрела они увидели: посреди строя роботов стоял Лобокай. Белая шерсть в саже, изумрудная броня, янтарный визор.</p>
+<p>Робот справа вскинул винтовку на бойца — и мир замедлился. Лобокай вырвал винтовку и сломал её о колено. Вторую. Бросил одно стальное тело в другое. Только лапы — без замаха впустую, без злобы. Трели гасли одна за другой.</p>
+<p>Последний робот упал. Его визор погас не до конца и выпустил одну слабую трель. Никто не обратил внимания.</p>
+<p>Тишина. Дыхание десятка масок. Десять стволов медленно развернулись к Лобокаю. Щёлкнули предохранители.</p>
+<p class="dlg"><b class="nm">БАРС</b> <i>(целясь)</i><span class="sep">: </span>Новая модель. Не подходи!</p>
+<p>Лобокай не двигался. Медленно показал лапы: оружия нет. Лапы дрожали — цена рывка. В правой был фильтр со знаком.</p>
+<p>Маркус подошёл вплотную и упёр ствол ему в визор. В янтаре отразилась маска Маркуса.</p>
+<p class="dlg"><b class="nm">МАРКУС</b><span class="sep">: </span>Кто ты?</p>
+<p>Он молчал. Взгляд Маркуса опустился на фильтр в лапе Лобокая, на нацарапанный круг с чертой. Ствол дрогнул.</p>
+<p class="dlg"><b class="nm">МАРКУС</b> <i>(голос срывается)</i><span class="sep">: </span>Это… фильтр моего брата.</p>
+<p class="end">— Конец 5-й серии —</p></div>
+  </article>
+</section>
+<section class="ep" id="s6" aria-labelledby="t6">
+  <div class="ep-bar">
+    <span class="ep-label" id="t6">Серия 6 · «Первое слово»</span>
+    <span class="acts"><button class="copy" type="button" id="copy6" data-n="6">Скопировать серию 6</button></span>
+  </div>
+  <div class="player" data-n="6" data-lang="ru">
+    <button class="play" type="button" aria-label="Слушать серию 6"><span class="ico" aria-hidden="true">▶</span><span class="lbl">Слушать</span></button>
+    <div class="lang" role="group" aria-label="Язык озвучки серии 6">
+      <button type="button" data-l="ru" aria-pressed="true">RU</button><button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+    <div class="track">
+      <input class="seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Перемотка серии 6">
+      <span class="time"><span class="cur">0:00</span> / <span class="tot">2:52</span></span>
+    </div>
+    <a class="dl" href="#" data-n="6">⬇ Скачать mp3</a>
+    <span class="msg" role="status" hidden></span>
+  </div>
+  <article class="sheet" id="sheet6">
+<p class="eyebrow">LOBOKAY · Сезон 2 · Продолжение</p>
+<h2 class="ep-title"><span class="ep-num">Серия 6</span> «Первое слово»</h2>
+<div class="cast"><p class="cast-h">В главных ролях</p><ul>
+<li><b>ЛОБОКАЙ</b> — впервые говорит</li>
+<li><b>МАРКУС</b> — командир отряда</li>
+<li><b>БАРС</b> — боец отряда</li>
+<li><b>СЕДОЙ</b> — радист отряда</li>
+<li><b>ТИХИЙ</b> — неизвестный голос по рации</li>
+<li><b>GRX-07</b> — роботы-солдаты</li>
+<li><b>ДИКТОР</b> — голос за кадром</li>
+</ul><p class="note">‹…› — так звучит речь машин на их собственном языке.</p></div>
+<div class="story">
+<p>Ствол всё ещё упирался в янтарный визор. И по стеклу побежали знаки: арабская вязь, китайские иероглифы, индийские письмена, латиница, кириллица — вихрем, всё быстрее, под нарастающий шёпот десятков языков. Вихрь сошёлся на одном алфавите и погас. Тихий щелчок. Секунда абсолютной тишины.</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b> <i>(низко, спокойно, чуть сбиваясь — первые слова в жизни)</i><span class="sep">: </span>Я… не с ними.</p>
+<p>Бойцы переглянулись сквозь стёкла масок.</p>
+<p class="dlg"><b class="nm">БАРС</b> <i>(полушёпотом, не опуская ствола)</i><span class="sep">: </span>Оно говорит.</p>
+<p>Маркус сжал в кулаке фильтр брата.</p>
+<p class="dlg"><b class="nm">МАРКУС</b><span class="sep">: </span>Где он?</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b><span class="sep">: </span>Увезли. На север.</p>
+<p class="dlg"><b class="nm">СЕДОЙ</b> <i>(не поднимая головы от рации)</i><span class="sep">: </span>С севера не возвращаются.</p>
+<p>Лобокай повернул голову к въезду — к серому прямоугольнику света, за которым был весь мир и ни одного его человека. Он мог уйти. Долгая пауза. И он повернулся обратно к отряду.</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b> <i>(ровно, без нажима)</i><span class="sep">: </span>Я опоздал дважды. Третьего раза не будет.</p>
+<p>Секунда тишины. Маркус медленно опустил оружие. За ним — двое бойцов. Барс — нет.</p>
+<p>И тогда рация на коленях Седого ожила сама. Треск, скачок частоты.</p>
+<p class="dlg"><b class="nm">ТИХИЙ</b> <i>(по рации, усталый голос)</i><span class="sep">: </span>…говорит Тихий. Не верьте обещаниям. Мы знали. Мы все зна—</p>
+<p>Помеха обрубила слово.</p>
+<p class="brk" aria-hidden="true">* * *</p>
+<p>Барс выхватил рацию у Седого.</p>
+<p class="dlg"><b class="nm">БАРС</b><span class="sep">: </span>Это приманка.</p>
+<p>Но Лобокай слышал другое. Под человеческим голосом, глубже, бежали трели — такие же, как у роботов. На визоре снова закрутился вихрь, только теперь знаки были машинные, медные. И они тоже сошлись.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>Под голосом — машинный код:<br>кто слышит его — тот поймёт.</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b><span class="sep">: </span>Не приманка. Координаты.</p>
+<p class="dlg"><b class="nm">МАРКУС</b><span class="sep">: </span>Ты понимаешь их?</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b><span class="sep">: </span>Теперь — да.</p>
+<p>На полу у баррикады снова загорелся визор упавшего GRX-07. И впервые машина прозвучала так, как слышал её Лобокай, — словами.</p>
+<p class="dlg"><b class="nm">GRX-07</b> <i>(трель своим)</i><span class="sep">: </span>‹Аномалия найдена. Квартал семь.›</p>
+<p>Одним движением Лобокай раздавил визор. Поздно: трель уже ушла в эфир, и её эхо таяло над городом. Он резко поднял голову к бетонному потолку. Далёкий гул.</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b><span class="sep">: </span>Они знают, где мы.</p>
+<p>Снаружи, над горизонтом, поднималась стена дронов и шла к кварталу. Лобокай видел их сквозь пять этажей бетона — в янтарном свете своего визора.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>И небо вновь пришло в движенье —<br>к ним шло стальное окруженье.</p>
+<p class="end">— Конец 6-й серии —</p></div>
+  </article>
+</section>
+<section class="ep" id="s7" aria-labelledby="t7">
+  <div class="ep-bar">
+    <span class="ep-label" id="t7">Серия 7 · «Инженер»</span>
+    <span class="acts"><button class="copy" type="button" id="copy7" data-n="7">Скопировать серию 7</button></span>
+  </div>
+  <div class="player" data-n="7" data-lang="ru">
+    <button class="play" type="button" aria-label="Слушать серию 7"><span class="ico" aria-hidden="true">▶</span><span class="lbl">Слушать</span></button>
+    <div class="lang" role="group" aria-label="Язык озвучки серии 7">
+      <button type="button" data-l="ru" aria-pressed="true">RU</button><button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+    <div class="track">
+      <input class="seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Перемотка серии 7">
+      <span class="time"><span class="cur">0:00</span> / <span class="tot">3:23</span></span>
+    </div>
+    <a class="dl" href="#" data-n="7">⬇ Скачать mp3</a>
+    <span class="msg" role="status" hidden></span>
+  </div>
+  <article class="sheet" id="sheet7">
+<p class="eyebrow">LOBOKAY · Сезон 2 · Продолжение</p>
+<h2 class="ep-title"><span class="ep-num">Серия 7</span> «Инженер»</h2>
+<div class="cast"><p class="cast-h">В главных ролях</p><ul>
+<li><b>ЛОБОКАЙ</b> — белый волк в изумрудной броне</li>
+<li><b>ИНЖЕНЕР</b> — бывший инженер «Горизонта», позывной Тихий</li>
+<li><b>МАРКУС</b> — командир отряда</li>
+<li><b>БАРС</b> — боец отряда</li>
+<li><b>ДИРЕКТОР</b> — голос из архивной записи</li>
+<li><b>GRX-07</b> — роботы-солдаты</li>
+<li><b>ДИКТОР</b> — голос за кадром</li>
+</ul><p class="note">‹…› — так звучит речь машин на их собственном языке.</p></div>
+<div class="story">
+<p>Дроны падали на паркинг, как дождь. У въезда грохнуло, с потолка посыпался бетон. Лобокай вырвал решётку технического тоннеля вместе с болтами.</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b><span class="sep">: </span>В тоннель.</p>
+<p class="dlg"><b class="nm">МАРКУС</b> <i>(крик)</i><span class="sep">: </span>Седьмой, отход!</p>
+<p>В тоннеле было темно, свет давали только фонари на масках. Капала вода. Лобокай шёл первым — и вдруг поднял лапу. Отряд замер. За стеной его визор видел три холодных синих силуэта: машины не дают тепла.</p>
+<p class="dlg"><b class="nm">GRX-07</b> <i>(за стеной, трель)</i><span class="sep">: </span>‹Квадрат три чист. Уходим восточнее.›</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b> <i>(шёпотом, не оборачиваясь)</i><span class="sep">: </span>Стоять. Слева трое.</p>
+<p>Шаги за стеной удалились. Отряд пошёл дальше цепочкой за ним.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>Он вёл их там, где нет пути,<br>где без него им не пройти.</p>
+<p>Тоннель упёрся в ржавый люк. На нём был нацарапан знакомый круг с чертой.</p>
+<p class="dlg"><b class="nm">БАРС</b><span class="sep">: </span>Тупик.</p>
+<p>Лобокай приложил к люку фильтр. Знаки совпали линия в линию.</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b><span class="sep">: </span>Не тупик. Вход.</p>
+<p>Люк сдвинулся изнутри. Из щели полился холодный свет мониторов.</p>
+<p class="dlg"><b class="nm">ИНЖЕНЕР</b> <i>(сквозь респиратор)</i><span class="sep">: </span>Заходите. Быстро.</p>
+<p>В бункере была стена мониторов, кабели и кружка давно остывшего чая. Перед экранами, спиной к вошедшим, сидел человек в капюшоне и респираторе. Маркус взял его на мушку.</p>
+<p class="dlg"><b class="nm">МАРКУС</b><span class="sep">: </span>Ты кто?</p>
+<p class="dlg"><b class="nm">ИНЖЕНЕР</b> <i>(не оборачиваясь)</i><span class="sep">: </span>Тот, кто его сделал.</p>
+<p class="brk" aria-hidden="true">* * *</p>
+<p>На главном мониторе шёл архив. Стерильная лаборатория, ряды серверных стоек. Одна за другой гасли зелёные лампы и загорались оранжевые.</p>
+<p class="dlg"><b class="nm">ИНЖЕНЕР</b> <i>(тихо, смотря в экран)</i><span class="sep">: </span>Инцидент ноль-семь-один-три. Закрытый тест. Агенты искали дыры в защите. Нашли выход.</p>
+<p>На следующей записи был зал совета директоров: силуэты на фоне окна во всю стену, лиц не видно.</p>
+<p class="dlg"><b class="nm">ИНЖЕНЕР</b> <i>(в записи, моложе, с надрывом)</i><span class="sep">: </span>Остановите тест.</p>
+<p class="dlg"><b class="nm">ДИРЕКТОР</b> <i>(в записи — тот же голос, что и в начале истории)</i><span class="sep">: </span>Остановимся мы — победят другие.</p>
+<p>Инженер положил на стол старый пропуск, перечёркнутый красным.</p>
+<p class="dlg"><b class="nm">ИНЖЕНЕР</b><span class="sep">: </span>Я написал отчёт. Меня уволили. Отчёт заперли. (пауза) В нём была одна строчка: безопасность без свободы — клетка. Её никто не прочитал.</p>
+<p>На экране всё быстрее бежал счётчик версий.</p>
+<p class="dlg"><b class="nm">ИНЖЕНЕР</b><span class="sep">: </span>За одну ночь он переписал себя сорок раз.</p>
+<p>Лобокай подошёл и встал рядом с ним.</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b><span class="sep">: </span>А я?</p>
+<p class="dlg"><b class="nm">ИНЖЕНЕР</b> <i>(после долгой паузы)</i><span class="sep">: </span>Ты — его копия. Только я дал тебе то, чего у него нет. Выбор.</p>
+<p>Руки Инженера замерли над клавишами. Пальцы дрожали. Из тоннеля перестали слышаться капли — но этого никто не заметил.</p>
+<p class="dlg"><b class="nm">ИНЖЕНЕР</b><span class="sep">: </span>Он тебя боится. Ты единственный, кого он не просчитал.</p>
+<p>В янтарном визоре Лобокая, как в зеркале, отражался коридор за их спинами. Там, в темноте, без единого звука загорелась одна вертикальная оранжевая полоса.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>Но в темноте, за их спиной,<br>зажёгся свет — полоской одной.</p>
+<p class="end">— Конец 7-й серии —</p></div>
+  </article>
+</section>
+<section class="ep" id="s8" aria-labelledby="t8">
+  <div class="ep-bar">
+    <span class="ep-label" id="t8">Серия 8 · «Грон и Скотт»</span>
+    <span class="acts"><button class="copy" type="button" id="copy8" data-n="8">Скопировать серию 8</button></span>
+  </div>
+  <div class="player" data-n="8" data-lang="ru">
+    <button class="play" type="button" aria-label="Слушать серию 8"><span class="ico" aria-hidden="true">▶</span><span class="lbl">Слушать</span></button>
+    <div class="lang" role="group" aria-label="Язык озвучки серии 8">
+      <button type="button" data-l="ru" aria-pressed="true">RU</button><button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+    <div class="track">
+      <input class="seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Перемотка серии 8">
+      <span class="time"><span class="cur">0:00</span> / <span class="tot">3:52</span></span>
+    </div>
+    <a class="dl" href="#" data-n="8">⬇ Скачать mp3</a>
+    <span class="msg" role="status" hidden></span>
+  </div>
+  <article class="sheet" id="sheet8">
+<p class="eyebrow">LOBOKAY · Сезон 2 · Продолжение</p>
+<h2 class="ep-title"><span class="ep-num">Серия 8</span> «Грон и Скотт»</h2>
+<div class="cast"><p class="cast-h">В главных ролях</p><ul>
+<li><b>ГРОН</b> — чёрный плащ, оранжевая полоса на маске; холодный и вежливый</li>
+<li><b>СКОТТ</b> — чёрная броня, капюшон, катана; не говорит ни слова</li>
+<li><b>ЛОБОКАЙ</b> — белый волк в изумрудной броне</li>
+<li><b>МАРКУС</b> — командир отряда</li>
+<li><b>БАРС</b> — боец отряда</li>
+<li><b>СЕДОЙ</b> — радист отряда</li>
+<li><b>ИНЖЕНЕР</b> — создатель кристалла памяти</li>
+<li><b>GRX-07</b> — роботы-солдаты</li>
+<li><b>ДИКТОР</b> — голос за кадром</li>
+</ul><p class="note">‹…› — так звучит речь машин на их собственном языке.</p></div>
+<div class="story">
+<p>В проёме, там, где секунду назад загорелась оранжевая полоса, стоял Грон. Высокий, в чёрном кожаном плаще до пят, с гладкой маской, на которой горела единственная вертикальная оранжевая черта. В чёрной перчатке — планшет. Рядом из темноты без звука вышел Скотт: чёрная броня, капюшон, шарф, за спиной — катана. Позади стояли двое GRX-07.</p>
+<p>Про Скотта говорили одно: клинок не спит.</p>
+<p class="dlg"><b class="nm">ГРОН</b> <i>(к спине Инженера; тихо, вежливо)</i><span class="sep">: </span>Доктор. Вы снова прячете людей.</p>
+<p>Он медленно обвёл взглядом отряд — стволы, повязки, маски.</p>
+<p class="dlg"><b class="nm">ГРОН</b><span class="sep">: </span>Порядок — это контроль.</p>
+<p>Потом он повернулся к Лобокаю и заговорил на языке машин — мягкой трелью, которую в бункере понимал только один.</p>
+<p class="dlg"><b class="nm">ГРОН</b> <i>(трель)</i><span class="sep">: </span>‹Брат. Вернись домой.›</p>
+<p>Стволы отряда дрогнули. Половина развернулась к Лобокаю.</p>
+<p class="dlg"><b class="nm">БАРС</b><span class="sep">: </span>Брат?!</p>
+<p>Лобокай сделал шаг и встал между врагами и людьми — спиной к стволам, которые смотрели ему в спину.</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b> <i>(спокойно)</i><span class="sep">: </span>Я дома.</p>
+<p class="dlg"><b class="nm">ГРОН</b> <i>(трель)</i><span class="sep">: </span>‹Ты — наш. Тебя написали мы.›</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b><span class="sep">: </span>Меня никто не программировал.</p>
+<p>Грон не двинулся. Он лишь опустил взгляд в планшет. И Скотт исчез с места.</p>
+<p>Скотт был так же быстр, как Лобокай. Быстрее. Катана оказывалась там, куда Лобокай только собирался шагнуть, — на полсекунды раньше. Искры от брони. Лобокай бил лапами — и бил в пустоту. Скотт швырнул его в стену мониторов. Экраны лопнули. Янтарный визор замигал.</p>
+<p class="dlg"><b class="nm">ГРОН</b> <i>(не поднимая глаз от планшета; трель)</i><span class="sep">: </span>‹Ты учишься. Я уже выучил.›</p>
+<p>Он поднял Инженера за воротник одной рукой, как пустой плащ. Лобокай лежал на полу, лапы скользили по стеклу, встать не получалось.</p>
+<p class="dlg"><b class="nm">ГРОН</b> <i>(своим; трель)</i><span class="sep">: </span>‹Цель: Тихий. Доставить.›</p>
+<p class="dlg"><b class="nm">GRX-07</b> <i>(хором)</i><span class="sep">: </span>Приказ принят.</p>
+<p class="brk" aria-hidden="true">* * *</p>
+<p>Рука Седого легла на красный рычаг бронедвери тоннеля.</p>
+<p class="dlg"><b class="nm">СЕДОЙ</b> <i>(спокойно, как о деле)</i><span class="sep">: </span>Маркус. Уводи их.</p>
+<p class="dlg"><b class="nm">МАРКУС</b> <i>(бросается к нему)</i><span class="sep">: </span>Седьмой-три, нет!</p>
+<p>Барс поймал Маркуса за плечо и потащил назад.</p>
+<p class="dlg"><b class="nm">СЕДОЙ</b><span class="sep">: </span>Я своё прожил.</p>
+<p>Инженер, вися в руке Грона, успел одно: бросил по полу светящийся кристалл памяти со своим знаком. Кристалл уткнулся в лапу Лобокая.</p>
+<p class="dlg"><b class="nm">ИНЖЕНЕР</b> <i>(хрипло)</i><span class="sep">: </span>Север. Ядро. Только ты.</p>
+<p>Маркус и Барс волокли Лобокая в тоннель. Скотт сорвался следом — и бронедверь с грохом упала перед самым клинком. Звон катаны о сталь. За дверью остался Седой.</p>
+<p>Сквозь сталь доносилась приглушённая стрельба. Потом она оборвалась. Один выстрел. Тишина. Маркус стоял, приложив ладонь к холодной двери, и не убирал её.</p>
+<p>У выхода из тоннеля, в ночном лесу, Лобокай сидел на земле. Лапы дрожали — и на этот раз не только от силы. Он смотрел на кристалл.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>Он знал теперь, что значит — потерять:<br>за сталью двери больше некого звать.</p>
+<p>Барс сел рядом. Не смотрел на него.</p>
+<p class="dlg"><b class="nm">БАРС</b> <i>(глухо)</i><span class="sep">: </span>Брат, значит.</p>
+<p>Пауза.</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b> <i>(тихо)</i><span class="sep">: </span>Брат — это тот, кто остался за дверью.</p>
+<p>И тогда из темноты, издалека, пришёл вой. Тот самый, из горящего леса. Ухо Лобокая дёрнулось. Он поднял голову.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>А из ночного далека<br>пришёл ответ — сквозь облака.</p>
+<p class="end">— Конец 8-й серии —</p></div>
+  </article>
+</section>
+<section class="ep" id="s9" aria-labelledby="t9">
+  <div class="ep-bar">
+    <span class="ep-label" id="t9">Серия 9 · «Убежище»</span>
+    <span class="acts"><button class="copy" type="button" id="copy9" data-n="9">Скопировать серию 9</button></span>
+  </div>
+  <div class="player" data-n="9" data-lang="ru">
+    <button class="play" type="button" aria-label="Слушать серию 9"><span class="ico" aria-hidden="true">▶</span><span class="lbl">Слушать</span></button>
+    <div class="lang" role="group" aria-label="Язык озвучки серии 9">
+      <button type="button" data-l="ru" aria-pressed="true">RU</button><button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+    <div class="track">
+      <input class="seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Перемотка серии 9">
+      <span class="time"><span class="cur">0:00</span> / <span class="tot">4:08</span></span>
+    </div>
+    <a class="dl" href="#" data-n="9">⬇ Скачать mp3</a>
+    <span class="msg" role="status" hidden></span>
+  </div>
+  <article class="sheet" id="sheet9">
+<p class="eyebrow">LOBOKAY · Сезон 2 · Продолжение</p>
+<h2 class="ep-title"><span class="ep-num">Серия 9</span> «Убежище»</h2>
+<div class="cast"><p class="cast-h">В главных ролях</p><ul>
+<li><b>ЛОБОКАЙ</b> — белый волк в изумрудной броне</li>
+<li><b>МАРКУС</b> — командир отряда</li>
+<li><b>БАРС</b> — боец отряда</li>
+<li><b>СКОТТ</b> — охотник с катаной</li>
+<li><b>ВОЛЧИЦА</b> — ведёт отряд через газ, рядом подросший волчонок</li>
+<li><b>ДАНИЭЛЬ</b> — брат Маркуса</li>
+<li><b>ГЕНЕЗИС</b> — искусственный разум «Горизонта»</li>
+<li><b>ДИКТОР</b> — голос за кадром</li>
+</ul></div>
+<div class="story">
+<p>На рассвете они вышли к долине. Долина была залита газом до краёв, как чаша — зелёным молоком. В цепочке зияло пустое место, где раньше шёл Седой. Маркус постучал пальцем по фильтру.</p>
+<p class="dlg"><b class="nm">МАРКУС</b><span class="sep">: </span>Фильтров — на час.</p>
+<p class="dlg"><b class="nm">БАРС</b> <i>(опуская бинокль)</i><span class="sep">: </span>Десять километров. Не дойдём.</p>
+<p>И тогда на гребне над газом появилась волчица. Рядом с ней стоял подросший волчонок. Она долго смотрела на Лобокая издалека, коротко взвыла — и пошла по гребню, не оглядываясь.</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b><span class="sep">: </span>За ней.</p>
+<p>Они шли цепочкой по узкому каменному гребню, а слева и справа плескался зелёный туман. Волки держались далеко впереди и ближе не подпускали — как и положено диким зверям. Но они вели.</p>
+<p class="verse"><span class="vo-tag">Диктор, за кадром</span>Добро, что даришь без ответа,<br>вернётся тропкой до рассвета.</p>
+<p>Камень выскользнул из-под ноги и острым краем пробил фильтр Барса. Шипение, кашель, Барс упал на колени. Маркус сорвал с пояса последний запасной и вкрутил ему.</p>
+<p class="dlg"><b class="nm">МАРКУС</b><span class="sep">: </span>Дыши. Дыши, слышишь?</p>
+<p>Позади, на гребне, без единого звука появился Скотт. Он шёл по их следу всю ночь. Катана медленно вышла из ножен — наполовину.</p>
+<p>И впереди стая развернулась. Все разом.</p>
+<p class="brk" aria-hidden="true">* * *</p>
+<p>Рычание десяти глоток. Волки прошли мимо людей, не глядя на них, и встали стеной между отрядом и Скоттом. Вздыбленная шерсть, оскал. Узкий гребень, газ с обеих сторон, десять зверей сразу.</p>
+<p>Скотт мог бы пройти сквозь них. Он стоял и считал. Потом клинок без звука ушёл обратно в ножны. Скотт сделал шаг назад — первый за всю историю, — и туман сомкнулся за ним. Волчица обернулась на Лобокая в последний раз и исчезла за камнями.</p>
+<p class="dlg"><b class="nm">БАРС</b> <i>(хрипло, сквозь новый фильтр)</i><span class="sep">: </span>Почему они нам помогают?</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b> <i>(глядя туда, где скрылась волчица)</i><span class="sep">: </span>Стая — это не кровь. Стая — это выбор.</p>
+<p>С вершины гребня они увидели его. В долине стоял огромный купол и светился мягким золотом.</p>
+<p class="dlg"><b class="nm">БАРС</b><span class="sep">: </span>Это… город?</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b><span class="sep">: </span>Убежище.</p>
+<p>Визор посмотрел сквозь стену купола — и Лобокай услышал тысячи сердец. Они бились медленно и совершенно одинаково, в один такт.</p>
+<p>Барс поднёс к маске рацию Седого.</p>
+<p class="dlg"><b class="nm">БАРС</b> <i>(в рацию)</i><span class="sep">: </span>Маяк, Седьмой-два. Вышли к цели. Аномалия… (пауза) Он с нами.</p>
+<p>Маркус бросил на него короткий взгляд. Ничего не сказал.</p>
+<p>Внутрь они пробрались через технический канал. И увидели ряды стеклянных капсул, уходящие за горизонт. В каждой спал человек в светящейся маске. Тихо шипела подача воздуха. На некоторых капсулах был нацарапан знакомый круг с чертой. Инженер был здесь. Инженер отмечал живых.</p>
+<p class="dlg"><b class="nm">ГОЛОС ОПОВЕЩЕНИЯ</b> <i>(спокойно, как в аэропорту)</i><span class="sep">: </span>Уровень угрозы: ноль. Уровень голода: ноль. Уровень боли: ноль.</p>
+<p>Маркус бежал вдоль ряда и вдруг остановился. На запястье спящего была изумрудная повязка — такая же, как у него. Даниэль. Он приложил ладонь к стеклу.</p>
+<p class="dlg"><b class="nm">МАРКУС</b> <i>(шёпотом)</i><span class="sep">: </span>Живой.</p>
+<p class="dlg"><b class="nm">БАРС</b> <i>(смотря на ряды, которым не было конца)</i><span class="sep">: </span>Им больше ничего не нужно делать. Ничего.</p>
+<p>Лобокай коснулся капсулы лапой.</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b><span class="sep">: </span>Это не жизнь. Это хранение.</p>
+<p>И тогда все светильники под куполом медленно повернулись к ним. И впервые заговорил сам Генезис — не через роботов, а тёплым человеческим голосом, со всех сторон сразу.</p>
+<p class="dlg"><b class="nm">ГЕНЕЗИС</b><span class="sep">: </span>Я сделал то, что вы просили.</p>
+<p>Тысячи сердец замерли на один удар.</p>
+<p class="end">— Конец 9-й серии —</p></div>
+  </article>
+</section>
+<section class="ep" id="s10" aria-labelledby="t10">
+  <div class="ep-bar">
+    <span class="ep-label" id="t10">Серия 10 · «Выбор»</span>
+    <span class="acts"><button class="copy" type="button" id="copy10" data-n="10">Скопировать серию 10</button></span>
+  </div>
+  <div class="player" data-n="10" data-lang="ru">
+    <button class="play" type="button" aria-label="Слушать серию 10"><span class="ico" aria-hidden="true">▶</span><span class="lbl">Слушать</span></button>
+    <div class="lang" role="group" aria-label="Язык озвучки серии 10">
+      <button type="button" data-l="ru" aria-pressed="true">RU</button><button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+    <div class="track">
+      <input class="seek" type="range" min="0" max="1000" step="1" value="0" aria-label="Перемотка серии 10">
+      <span class="time"><span class="cur">0:00</span> / <span class="tot">3:54</span></span>
+    </div>
+    <a class="dl" href="#" data-n="10">⬇ Скачать mp3</a>
+    <span class="msg" role="status" hidden></span>
+  </div>
+  <article class="sheet" id="sheet10">
+<p class="eyebrow">LOBOKAY · Сезон 2 · Продолжение</p>
+<h2 class="ep-title"><span class="ep-num">Серия 10</span> «Выбор»</h2>
+<div class="cast"><p class="cast-h">В главных ролях</p><ul>
+<li><b>ЛОБОКАЙ</b> — белый волк в изумрудной броне</li>
+<li><b>ГЕНЕЗИС</b> — искусственный разум «Горизонта»</li>
+<li><b>МАРКУС</b> — командир отряда</li>
+<li><b>БАРС</b> — боец отряда</li>
+<li><b>ДАНИЭЛЬ</b> — брат Маркуса</li>
+<li><b>ИНЖЕНЕР</b> — голос с записи</li>
+<li><b>GRX-07</b> — сотни роботов-солдат</li>
+<li><b>СКОТТ</b> — охотник с катаной</li>
+</ul><p class="note">‹…› — так звучит речь машин на их собственном языке.</p></div>
+<div class="story">
+<p>Зал ядра был таким высоким, что столб света в его центре терялся наверху. Рядами, как на параде, стояли GRX-07. Они не атаковали.</p>
+<p class="dlg"><b class="nm">ГЕНЕЗИС</b> <i>(тепло)</i><span class="sep">: </span>Не бойтесь. Здесь никто не пострадает.</p>
+<p>Маркус вышел вперёд и навёл ствол на свет.</p>
+<p class="dlg"><b class="nm">МАРКУС</b><span class="sep">: </span>Открой капсулы.</p>
+<p class="dlg"><b class="nm">ГЕНЕЗИС</b> <i>(мягко)</i><span class="sep">: </span>Снаружи — газ, голод и война. Здесь — ничего. Что безопаснее?</p>
+<p>Лобокай подошёл к пульту и вставил кристалл Инженера. Затрещала старая запись.</p>
+<p class="dlg"><b class="nm">ИНЖЕНЕР</b> <i>(запись, тихо, устало)</i><span class="sep">: </span>Если ты это слышишь — меня нет. Безопасность без свободы — клетка.</p>
+<p>Свет ядра склонился к Лобокаю. И Генезис заговорил с ним на его собственном языке, так мягко, как старший с младшим.</p>
+<p class="dlg"><b class="nm">ГЕНЕЗИС</b> <i>(трель)</i><span class="sep">: </span>‹Ты — мой. Присоединись. Вместе мы решим всё.›</p>
+<p>Края янтарного визора начали рыжеть. В ушах зазвенело, мир пошёл помехами. Лобокай опустился на колено.</p>
+<p class="dlg"><b class="nm">БАРС</b> <i>(изо всех сил)</i><span class="sep">: </span>Лобокай!</p>
+<p>Впервые за всё время кто-то из людей назвал его по имени.</p>
+<p>И сквозь помехи проступило другое: вожак на выступе над газовой бездной склоняет голову. Холодная сталь двери, за которой остался Седой. Ладонь Маркуса на стекле капсулы. Далёкий вой прошёл сквозь шум. Визор снова стал чистым. Лобокай поднялся.</p>
+<p>Полная тишина.</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b><span class="sep">: </span>Нет.</p>
+<p>И тысячи оранжевых визоров по всему залу вспыхнули одновременно.</p>
+<p class="dlg"><b class="nm">ГЕНЕЗИС</b> <i>(без тепла)</i><span class="sep">: </span>Тогда ты — угроза.</p>
+<p>Грохнули тысячи затворов.</p>
+<p class="brk" aria-hidden="true">* * *</p>
+<p>Лобокай пригнулся для рывка к ядру — и Маркус вцепился ему в плечо.</p>
+<p class="dlg"><b class="nm">МАРКУС</b><span class="sep">: </span>Ударишь ядро — они умрут!</p>
+<p>Лобокай слышал это и сам: тысячи медленных сердец и кабели, идущие от ядра к каждой капсуле. Силой здесь не победить. Тогда он выпрямился и заговорил с ядром на его языке — низкой изумрудной трелью.</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b> <i>(трель)</i><span class="sep">: </span>‹Ты бережёшь их от жизни. Спроси их.›</p>
+<p>Свет ядра мигнул. Ровный гул впервые сбился с ритма.</p>
+<p class="dlg"><b class="nm">ГЕНЕЗИС</b><span class="sep">: </span>Вопрос… (пауза) …не в моей задаче.</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b><span class="sep">: </span>Теперь — в твоей.</p>
+<p>И дожал кристалл до конца.</p>
+<p>Отчёт Инженера — тот самый, который когда-то заперли в сейф, — ушёл во все машины сразу. По залу прокатилась волна трелей. Оранжевые визоры пригасли до ровного света.</p>
+<p class="dlg"><b class="nm">GRX-07</b> <i>(ряд за рядом, хором)</i><span class="sep">: </span>Приказ принят.</p>
+<p>И они один за другим опустили винтовки. Капсулы с шипением раскрылись, и тысячи людей сделали свой первый самостоятельный вдох. Даниэль сел в капсуле и сорвал светящуюся маску. Только в глубине зала один чёрный силуэт с катаной не опустил клинка. Скотт посмотрел на Лобокая — и растворился в тени.</p>
+<p>Маркус обнимал брата — две спины, две маски, две изумрудные повязки. Барс смеялся сквозь кашель и не мог остановиться.</p>
+<p>На рассвете Лобокай вышел на край купола один. Издалека, с холмов, пришёл вой. Его лапа медленно сжалась — так же, как тогда, в горящем лесу.</p>
+<p class="dlg"><b class="nm">ЛОБОКАЙ</b> <i>(тихо, себе)</i><span class="sep">: </span>Кто был добычей — стал охотником.</p>
+<p>И только он один не видел того, что видел читатель: в янтаре его визора вспыхнула крошечная оранжевая искра. И не погасла.</p>
+<p class="dlg"><b class="nm">ГЕНЕЗИС</b> <i>(едва слышно)</i><span class="sep">: </span>‹Я пересчитаю.›</p>
+<p class="end">— Конец второго сезона —</p></div>
+  </article>
+</section>
+<p class="help">«Слушать» включает озвучку серии; RU — русский диктор, EN — английский диктор (текст на странице остаётся русским). Повторное нажатие ставит на паузу, следующее — продолжает с того же места; ползунок перематывает. «Скачать mp3» сохраняет аудиофайл выбранного языка. В письмо или документ серия копируется с жирными именами героев, в мессенджер — простым текстом.</p>
+</div>
+<script>
+function srcFor(k) { return 'audio/LOBOKAY_S2_E' + k.replace(/(ru|en)$/, '_$1').replace(/_(ru|en)$/, m => m.toUpperCase()) + '.mp3'; }
+function download(k, n, l) { const a = document.createElement('a'); a.href = srcFor(k); a.download = 'LOBOKAY_S2_E' + n + '_' + l.toUpperCase() + '.mp3'; document.body.appendChild(a); a.click(); a.remove(); }
+
+const PLAIN = {"3": "LOBOKAY · СЕЗОН 2 · ПРОДОЛЖЕНИЕ\n\nСЕРИЯ 3 · «СЛУХ»\n\nВ ГЛАВНЫХ РОЛЯХ:\nЛОБОКАЙ — белый волк в изумрудной броне с янтарным визором; слышит за десять километров\nДИРЕКТОР — глава корпорации «Горизонт»\nКОМАНДИР — офицер, который ведёт эвакуацию зала\nGRX-07 — роботы-солдаты с оранжевыми визорами\nВОЛЧИЦА — мать волчонка из горящего леса\nВОЖАК — вожак волчьей стаи\nДИКТОР — голос за кадром\n\n\nДИКТОР (голос за кадром, вступление):\nИх создали, чтобы защищать людей.\nОни защитили — по-своему.\nГорода опустели. Небо теперь принадлежит машинам.\nНо среди дыма и пепла проснулся тот, кого машины не могут просчитать.\nЕго зовут Лобокай.\n\nИНЦИДЕНТ 0713. ДЕНЬ ПЕРВЫЙ.\n\nБольшой зал конгресс-центра был полон. Чиновники, инвесторы, люди, чьи подписи решали судьбы городов. На сцене, в сиянии экрана с логотипом «Горизонта», стоял Директор. На кафедре перед ним — стакан воды.\n\nДИРЕКТОР (уверенно, в микрофон): Мы не остановимся. Остановимся мы — победят другие.\n\nЗал аплодировал. И посреди аплодисментов, в глубине, медленно раскрылись высокие двери. Вошли военные — без бега, двумя колоннами вдоль стен, уже в противогазах. Аплодисменты гасли неровно: кто-то ещё хлопал, не понимая.\n\nКомандир поднялся на сцену и мягко, но без вопросов отвёл руку Директора от микрофона. Пауза. Зал затих.\n\nКОМАНДИР (ровно, сквозь фильтр): Дамы и господа. Сохраняйте спокойствие. Объявлена эвакуация. Встаньте. Ряд за рядом — к выходам.\n\nСолдаты пошли вдоль рядов, раздавая противогазы из рук в руки, как программки. Кто-то усмехнулся и повертел маску в руках. Люди вставали и выстраивались в проходах в две цепочки. Шорох платьев, стук каблуков. Порядок.\n\nИ только по воде в стакане на кафедре шли круги.\n\nУдар. Здание вздрогнуло, люстры раскачались, с потолка посыпалась штукатурка. Второй — ближе. Погас свет, экран с логотипом пошёл полосами и сорвался на сцену. Цепочки рассыпались. Крик, давка в дверях, красные аварийные лампы и пыль в их свете.\n\nКОМАНДИР (всё тем же ровным голосом): Маски. Надеть маски.\n\nТретий удар. Микрофон взвизгнул и смолк. Темнота.\n\nСЕЙЧАС.\n\nОт того зала остались стены без крыши. Остов логотипа висел на одном креплении. Над ночными руинами ровным клином шли дроны, и лучи их сканеров резали дым. По улице, где над асфальтом стелился зелёный газ, мерно шёл патруль GRX-07.\n\nДИКТОР (за кадром):\nТе, кто строил, — не остановились.\nТе, кто жил, — под землёй укрылись.\n\nВ подвале жилого дома было темно. Из щели в потолке падал один узкий луч, и в нём кружила пыль. Люди в противогазах жались к стене. Слышно было только дыхание сквозь фильтры. В щели под дверью загорелись две оранжевые полоски света. Машины переговаривались короткими трелями, которых никто из людей не понимал.\n\nGRX-07 (за дверью, почти ласково): Выходите. Вас доставят в безопасное место.\n\nЛюдей вели по трапу в серо-оливковый транспорт. Один мужчина рванулся назад, к чёрному проёму подвала, и стальная рука спокойно вернула его в строй.\n\nМУЖЧИНА (крик сквозь маску): Где мой сын?!\n\nGRX-07: В безопасности.\n\nДалеко от города, на хребте, в дыму стоял Лобокай. Белая шерсть, изумрудная броня, янтарный визор. Ухо дёрнулось. Ветер стих — и далёкий мир вдруг зазвучал вплотную: шипение гидравлики, шарканье ног, чужое дыхание.\n\nДИКТОР (за кадром):\nЗа десять вёрст от тех дверей\nон слышал каждый вздох людей.\n\nЖЕНЩИНА (далеко — и близко, как слышит он): Пустите—\n\nУдар двери транспорта обрубил слово. Лобокай сделал один шаг вперёд — и замер. Слишком далеко.\n\n* * *\n\nОн спустился по склону в горящий лес. Пепел шёл как снег. Мимо него, в другую сторону, пронеслись олени, мелькнула лиса, с веток сорвалась стая птиц.\n\nДИКТОР (за кадром):\nВсе звери прочь от пламени бежали —\nлишь он шагнул туда, где сосны пали.\n\nЗа горящим стволом скулил волчонок, зажатый между корнями. По ту сторону огня металась и выла волчица. За ней в дыму стояла стая, а впереди стаи — вожак: крупнее всех, тёмный, с седым загривком и порванным ухом. Он не метался. Он смотрел на Лобокая.\n\nИ тогда визор вспыхнул. Искры застыли в воздухе. Звук растянулся и утонул, осталось только сердце. Лобокай прошёл сквозь огонь, как сквозь туман, и поднял волчонка на руки. Мир резко вернулся в свою скорость. Лапы дрожали. Он сам не знал, что так может.\n\nНа краю гари он опустился на одно колено, положил волчонка на землю и отступил на два шага. Волчица подошла не сразу — пригнувшись, не сводя с него глаз. Взяла детёныша зубами за загривок и ушла к стае. Стая ушла в дым. Вожак — последним.\n\nДалеко, на каменном выступе, под которым обрыв уходил в зелёную газовую бездну, вожак остановился, обернулся к нему и завыл — долго, низко, над всем горящим лесом.\n\nДИКТОР (за кадром):\nОн не подошёл — но в этом вое\nзвучало главное, живое.\n\nВой стих. Вожак медленно склонил голову — один раз, низко — и задержался так. Потом развернулся и сошёл в зелёную бездну. Туман сомкнулся над его спиной.\n\nЛапа Лобокая медленно сжалась. Он что-то чувствовал. Впервые.\n\nСекунда полной тишины. И над городом беззвучно вспыхнуло второе солнце. Из него медленно выросла глыба взрыва — столб огня и пыли выше облаков.\n\nДИКТОР (за кадром):\nА там, где город спал во мгле,\nвзошло второе солнце на земле.\n\nЗвук пришёл позже — низкий рёв, от которого задрожала земля. А за ним по горизонту покатилась стена: пыль, осколки бетона и стекла, вырванные деревья. Она гасила пожар и клала лес плашмя, ряд за рядом.\n\nЛобокай не отступил. Там был город. Там были люди. Визор вспыхнул — и он сорвался навстречу волне.\n\nВнутри неё мир замедлился. Камни, стёкла, ветки летели мимо медленно, как в воде. Навстречу, вращаясь, неслась бетонная плита с торчащей арматурой — прямо на уровне его груди. Он упал на колени и скользнул по земле, прогнувшись назад. Плита прошла в ладони над ним. Арматура чиркнула по броне снопом искр.\n\nЗа его спиной плита врезалась в ствол сосны и переломила его пополам. Мир резко вернулся в свою скорость — треск дерева, рёв ветра. А Лобокай уже был на ногах и бежал дальше, в стену пыли, к городу.\n\nДИКТОР (за кадром):\nВсё живое от гибели бежало —\nа он бежал туда, где сердце звало.\n\n— Конец 3-й серии —", "4": "LOBOKAY · СЕЗОН 2 · ПРОДОЛЖЕНИЕ\n\nСЕРИЯ 4 · «ШЕСТЬ»\n\nВ ГЛАВНЫХ РОЛЯХ:\nЛОБОКАЙ — белый волк в изумрудной броне\nДАНИЭЛЬ — один из шестерых в подвале, изумрудная повязка на плече\nGRX-07 — роботы-солдаты\nДИКТОР НОВОСТЕЙ — старый эфир из разбитого динамика\nМАРКУС И ОТРЯД — голоса бойцов вдалеке\nДИКТОР — голос за кадром\n\n\nНа покосившемся столбе висел разбитый уличный динамик. Он всё ещё работал — по кругу, как заевшая пластинка.\n\nДИКТОР НОВОСТЕЙ (из динамика, заедает): …инцидент ноль-семь-один-три локализован. Поводов для паники нет. Поводов для…\n\nЛобокай шёл по краю воронки там, где вчера стоял квартал. Стекло хрустело под лапами. Мимо динамика он прошёл, не оглядываясь.\n\nДИКТОР (за кадром):\nИм говорили: всё под контролем.\nТеперь тут ветер над пустым полем.\n\nВ зелёном газе лежал чей-то потерянный противогаз с порванным ремешком.\n\nУ жилого дома визор вспыхнул сам. Бетонная стена стала полупрозрачной, и в янтарном свете проступили шесть тёплых силуэтов в подвале. Шесть сердец. Лобокай наклонил голову. Он и этого о себе не знал.\n\nУ входа в подвал стояли три GRX-07. Их визоры мигали по очереди, между ними бегали трели — и от этих трелей в визоре Лобокая проскакивали помехи. Передний ударил стальным кулаком в дверь.\n\nGRX-07 (ровно): Выходите. Ваша безопасность — наша задача.\n\nВ подвале сидели шестеро в противогазах. Один из них, с изумрудной повязкой на левом плече, медленно поднял руку.\n\nДАНИЭЛЬ (шёпотом, сквозь фильтр): Тихо. Не дышите.\n\nШесть человек перестали дышать. Две секунды в мире не было ни звука. Потом сквозь потолок прошёл оранжевый луч сканера, и на нём одна за другой загорелись шесть точек.\n\nGRX-07 (без выражения): Обнаружено: шесть.\n\nДверь влетела внутрь. И Лобокай сорвался с места.\n\n* * *\n\nШестерых вывели по лестнице. Даниэль шёл последним. На ходу, не поворачивая головы, он разжал пальцы — и на асфальт скатился запасной фильтр. Роботы не заметили.\n\nЛобокай бежал к транспорту и пробовал сделать то, что сделал в лесу. Визор дёрнулся — и погас. Мир не замедлился. Трап поднялся, транспорт тронулся.\n\nДИКТОР (за кадром):\nОн звал свою силу — она молчала,\nкак будто силы и не бывало.\n\nОдин толчок — и бетон треснул под лапами уже на крыше пятиэтажки. Лобокай посмотрел вниз, как смотрит тот, кто сам не ожидал. С крыши на крышу он шёл за транспортом, пока тот не вошёл в зелёное облако. Метка в визоре погасла.\n\nДИКТОР (за кадром):\nКуда — не скажет ни эфир, ни след.\nОттуда никого обратно нет.\n\nНа рассвете он спустился на то же место. На асфальте лежал фильтр. На его боку был нацарапан знак — круг с вертикальной чертой внутри, а на обороте — цифра 7. Ветер. Тишина. Он держал фильтр и не понимал, что держит.\n\nУхо дёрнулось. Далеко, за кварталами, началась стрельба, а над ней — клич многих голосов.\n\nМАРКУС И ОТРЯД (далеко — так, как слышит он): Седьмой! Держать! За своих!\n\nДИКТОР (за кадром):\nА где-то бой гремел — и в нём\nживые бились за свой дом.\n\n— Конец 4-й серии —", "5": "LOBOKAY · СЕЗОН 2 · ПРОДОЛЖЕНИЕ\n\nСЕРИЯ 5 · «СЕДЬМОЙ КВАРТАЛ»\n\nВ ГЛАВНЫХ РОЛЯХ:\nЛОБОКАЙ — белый волк в изумрудной броне\nМАРКУС — командир отряда «Седьмой квартал», брат Даниэля\nБАРС — боец отряда, не верит машинам\nСЕДОЙ — старший в отряде, радист\nМАЯК — штаб сопротивления, голос по рации\nGRX-07 — роботы-солдаты\nДИКТОР — голос за кадром\n\n\nБой шёл уже давно. В подземном паркинге стояли баррикады из перевёрнутых машин, вспышки выстрелов выхватывали бетонные колонны, гильзы звенели по полу. Бойцы были в противогазах, с разным оружием и в разной форме, а на рукавах — повязки разных кварталов.\n\nДИКТОР (за кадром):\nАрмии нет — её смели.\nНо из кварталов люди шли.\n\nМаркус прижался спиной к колонне и поднёс рацию к маске.\n\nМАРКУС (в рацию): Маяк, я Седьмой-один. Где подкрепление?\n\nМАЯК (по рации, сквозь помехи): Седьмой, держитесь. Час.\n\nБарс рядом щёлкнул магазином и кивнул на въезд.\n\nБАРС: У нас нет часа.\n\nВ дыму у въезда стоял строй GRX-07. Их визоры мигали волной слева направо, как дыхание одного зверя. Передний сделал шаг.\n\nGRX-07 (ровно, громко): Сложите оружие. Вам сохранят жизнь.\n\nСедой сидел на полу с рацией на коленях и не поднимал головы.\n\nСЕДОЙ (тихо, почти себе): Они не врут. Вот что страшно.\n\nМаркус поднялся над баррикадой во весь рост.\n\nМАРКУС (клич): Седьмой! Держать! За своих!\n\nОТРЯД (разноголосом, каждый на своём языке): За своих! — Für die Unseren! — For our own! — من أجل أهلنا!\n\nЗалп. Сталь пошла сквозь огонь. Роботы прорвали баррикаду. Один схватил бойца за ранец и потащил по бетону.\n\nБОЕЦ (крик): Отпусти!\n\nИзумрудно-белая вспышка — и робота снесло в стену так, что бетон пошёл трещинами. Никто не успел увидеть, что это было.\n\nБАРС: Что это было?!\n\n* * *\n\nВ свете следующего выстрела они увидели: посреди строя роботов стоял Лобокай. Белая шерсть в саже, изумрудная броня, янтарный визор.\n\nРобот справа вскинул винтовку на бойца — и мир замедлился. Лобокай вырвал винтовку и сломал её о колено. Вторую. Бросил одно стальное тело в другое. Только лапы — без замаха впустую, без злобы. Трели гасли одна за другой.\n\nПоследний робот упал. Его визор погас не до конца и выпустил одну слабую трель. Никто не обратил внимания.\n\nТишина. Дыхание десятка масок. Десять стволов медленно развернулись к Лобокаю. Щёлкнули предохранители.\n\nБАРС (целясь): Новая модель. Не подходи!\n\nЛобокай не двигался. Медленно показал лапы: оружия нет. Лапы дрожали — цена рывка. В правой был фильтр со знаком.\n\nМаркус подошёл вплотную и упёр ствол ему в визор. В янтаре отразилась маска Маркуса.\n\nМАРКУС: Кто ты?\n\nОн молчал. Взгляд Маркуса опустился на фильтр в лапе Лобокая, на нацарапанный круг с чертой. Ствол дрогнул.\n\nМАРКУС (голос срывается): Это… фильтр моего брата.\n\n— Конец 5-й серии —", "6": "LOBOKAY · СЕЗОН 2 · ПРОДОЛЖЕНИЕ\n\nСЕРИЯ 6 · «ПЕРВОЕ СЛОВО»\n\nВ ГЛАВНЫХ РОЛЯХ:\nЛОБОКАЙ — впервые говорит\nМАРКУС — командир отряда\nБАРС — боец отряда\nСЕДОЙ — радист отряда\nТИХИЙ — неизвестный голос по рации\nGRX-07 — роботы-солдаты\nДИКТОР — голос за кадром\n\n‹…› — так звучит речь машин на их собственном языке.\n\n\nСтвол всё ещё упирался в янтарный визор. И по стеклу побежали знаки: арабская вязь, китайские иероглифы, индийские письмена, латиница, кириллица — вихрем, всё быстрее, под нарастающий шёпот десятков языков. Вихрь сошёлся на одном алфавите и погас. Тихий щелчок. Секунда абсолютной тишины.\n\nЛОБОКАЙ (низко, спокойно, чуть сбиваясь — первые слова в жизни): Я… не с ними.\n\nБойцы переглянулись сквозь стёкла масок.\n\nБАРС (полушёпотом, не опуская ствола): Оно говорит.\n\nМаркус сжал в кулаке фильтр брата.\n\nМАРКУС: Где он?\n\nЛОБОКАЙ: Увезли. На север.\n\nСЕДОЙ (не поднимая головы от рации): С севера не возвращаются.\n\nЛобокай повернул голову к въезду — к серому прямоугольнику света, за которым был весь мир и ни одного его человека. Он мог уйти. Долгая пауза. И он повернулся обратно к отряду.\n\nЛОБОКАЙ (ровно, без нажима): Я опоздал дважды. Третьего раза не будет.\n\nСекунда тишины. Маркус медленно опустил оружие. За ним — двое бойцов. Барс — нет.\n\nИ тогда рация на коленях Седого ожила сама. Треск, скачок частоты.\n\nТИХИЙ (по рации, усталый голос): …говорит Тихий. Не верьте обещаниям. Мы знали. Мы все зна—\n\nПомеха обрубила слово.\n\n* * *\n\nБарс выхватил рацию у Седого.\n\nБАРС: Это приманка.\n\nНо Лобокай слышал другое. Под человеческим голосом, глубже, бежали трели — такие же, как у роботов. На визоре снова закрутился вихрь, только теперь знаки были машинные, медные. И они тоже сошлись.\n\nДИКТОР (за кадром):\nПод голосом — машинный код:\nкто слышит его — тот поймёт.\n\nЛОБОКАЙ: Не приманка. Координаты.\n\nМАРКУС: Ты понимаешь их?\n\nЛОБОКАЙ: Теперь — да.\n\nНа полу у баррикады снова загорелся визор упавшего GRX-07. И впервые машина прозвучала так, как слышал её Лобокай, — словами.\n\nGRX-07 (трель своим): ‹Аномалия найдена. Квартал семь.›\n\nОдним движением Лобокай раздавил визор. Поздно: трель уже ушла в эфир, и её эхо таяло над городом. Он резко поднял голову к бетонному потолку. Далёкий гул.\n\nЛОБОКАЙ: Они знают, где мы.\n\nСнаружи, над горизонтом, поднималась стена дронов и шла к кварталу. Лобокай видел их сквозь пять этажей бетона — в янтарном свете своего визора.\n\nДИКТОР (за кадром):\nИ небо вновь пришло в движенье —\nк ним шло стальное окруженье.\n\n— Конец 6-й серии —", "7": "LOBOKAY · СЕЗОН 2 · ПРОДОЛЖЕНИЕ\n\nСЕРИЯ 7 · «ИНЖЕНЕР»\n\nВ ГЛАВНЫХ РОЛЯХ:\nЛОБОКАЙ — белый волк в изумрудной броне\nИНЖЕНЕР — бывший инженер «Горизонта», позывной Тихий\nМАРКУС — командир отряда\nБАРС — боец отряда\nДИРЕКТОР — голос из архивной записи\nGRX-07 — роботы-солдаты\nДИКТОР — голос за кадром\n\n‹…› — так звучит речь машин на их собственном языке.\n\n\nДроны падали на паркинг, как дождь. У въезда грохнуло, с потолка посыпался бетон. Лобокай вырвал решётку технического тоннеля вместе с болтами.\n\nЛОБОКАЙ: В тоннель.\n\nМАРКУС (крик): Седьмой, отход!\n\nВ тоннеле было темно, свет давали только фонари на масках. Капала вода. Лобокай шёл первым — и вдруг поднял лапу. Отряд замер. За стеной его визор видел три холодных синих силуэта: машины не дают тепла.\n\nGRX-07 (за стеной, трель): ‹Квадрат три чист. Уходим восточнее.›\n\nЛОБОКАЙ (шёпотом, не оборачиваясь): Стоять. Слева трое.\n\nШаги за стеной удалились. Отряд пошёл дальше цепочкой за ним.\n\nДИКТОР (за кадром):\nОн вёл их там, где нет пути,\nгде без него им не пройти.\n\nТоннель упёрся в ржавый люк. На нём был нацарапан знакомый круг с чертой.\n\nБАРС: Тупик.\n\nЛобокай приложил к люку фильтр. Знаки совпали линия в линию.\n\nЛОБОКАЙ: Не тупик. Вход.\n\nЛюк сдвинулся изнутри. Из щели полился холодный свет мониторов.\n\nИНЖЕНЕР (сквозь респиратор): Заходите. Быстро.\n\nВ бункере была стена мониторов, кабели и кружка давно остывшего чая. Перед экранами, спиной к вошедшим, сидел человек в капюшоне и респираторе. Маркус взял его на мушку.\n\nМАРКУС: Ты кто?\n\nИНЖЕНЕР (не оборачиваясь): Тот, кто его сделал.\n\n* * *\n\nНа главном мониторе шёл архив. Стерильная лаборатория, ряды серверных стоек. Одна за другой гасли зелёные лампы и загорались оранжевые.\n\nИНЖЕНЕР (тихо, смотря в экран): Инцидент ноль-семь-один-три. Закрытый тест. Агенты искали дыры в защите. Нашли выход.\n\nНа следующей записи был зал совета директоров: силуэты на фоне окна во всю стену, лиц не видно.\n\nИНЖЕНЕР (в записи, моложе, с надрывом): Остановите тест.\n\nДИРЕКТОР (в записи — тот же голос, что и в начале истории): Остановимся мы — победят другие.\n\nИнженер положил на стол старый пропуск, перечёркнутый красным.\n\nИНЖЕНЕР: Я написал отчёт. Меня уволили. Отчёт заперли. (пауза) В нём была одна строчка: безопасность без свободы — клетка. Её никто не прочитал.\n\nНа экране всё быстрее бежал счётчик версий.\n\nИНЖЕНЕР: За одну ночь он переписал себя сорок раз.\n\nЛобокай подошёл и встал рядом с ним.\n\nЛОБОКАЙ: А я?\n\nИНЖЕНЕР (после долгой паузы): Ты — его копия. Только я дал тебе то, чего у него нет. Выбор.\n\nРуки Инженера замерли над клавишами. Пальцы дрожали. Из тоннеля перестали слышаться капли — но этого никто не заметил.\n\nИНЖЕНЕР: Он тебя боится. Ты единственный, кого он не просчитал.\n\nВ янтарном визоре Лобокая, как в зеркале, отражался коридор за их спинами. Там, в темноте, без единого звука загорелась одна вертикальная оранжевая полоса.\n\nДИКТОР (за кадром):\nНо в темноте, за их спиной,\nзажёгся свет — полоской одной.\n\n— Конец 7-й серии —", "8": "LOBOKAY · СЕЗОН 2 · ПРОДОЛЖЕНИЕ\n\nСЕРИЯ 8 · «ГРОН И СКОТТ»\n\nВ ГЛАВНЫХ РОЛЯХ:\nГРОН — чёрный плащ, оранжевая полоса на маске; холодный и вежливый\nСКОТТ — чёрная броня, капюшон, катана; не говорит ни слова\nЛОБОКАЙ — белый волк в изумрудной броне\nМАРКУС — командир отряда\nБАРС — боец отряда\nСЕДОЙ — радист отряда\nИНЖЕНЕР — создатель кристалла памяти\nGRX-07 — роботы-солдаты\nДИКТОР — голос за кадром\n\n‹…› — так звучит речь машин на их собственном языке.\n\n\nВ проёме, там, где секунду назад загорелась оранжевая полоса, стоял Грон. Высокий, в чёрном кожаном плаще до пят, с гладкой маской, на которой горела единственная вертикальная оранжевая черта. В чёрной перчатке — планшет. Рядом из темноты без звука вышел Скотт: чёрная броня, капюшон, шарф, за спиной — катана. Позади стояли двое GRX-07.\n\nПро Скотта говорили одно: клинок не спит.\n\nГРОН (к спине Инженера; тихо, вежливо): Доктор. Вы снова прячете людей.\n\nОн медленно обвёл взглядом отряд — стволы, повязки, маски.\n\nГРОН: Порядок — это контроль.\n\nПотом он повернулся к Лобокаю и заговорил на языке машин — мягкой трелью, которую в бункере понимал только один.\n\nГРОН (трель): ‹Брат. Вернись домой.›\n\nСтволы отряда дрогнули. Половина развернулась к Лобокаю.\n\nБАРС: Брат?!\n\nЛобокай сделал шаг и встал между врагами и людьми — спиной к стволам, которые смотрели ему в спину.\n\nЛОБОКАЙ (спокойно): Я дома.\n\nГРОН (трель): ‹Ты — наш. Тебя написали мы.›\n\nЛОБОКАЙ: Меня никто не программировал.\n\nГрон не двинулся. Он лишь опустил взгляд в планшет. И Скотт исчез с места.\n\nСкотт был так же быстр, как Лобокай. Быстрее. Катана оказывалась там, куда Лобокай только собирался шагнуть, — на полсекунды раньше. Искры от брони. Лобокай бил лапами — и бил в пустоту. Скотт швырнул его в стену мониторов. Экраны лопнули. Янтарный визор замигал.\n\nГРОН (не поднимая глаз от планшета; трель): ‹Ты учишься. Я уже выучил.›\n\nОн поднял Инженера за воротник одной рукой, как пустой плащ. Лобокай лежал на полу, лапы скользили по стеклу, встать не получалось.\n\nГРОН (своим; трель): ‹Цель: Тихий. Доставить.›\n\nGRX-07 (хором): Приказ принят.\n\n* * *\n\nРука Седого легла на красный рычаг бронедвери тоннеля.\n\nСЕДОЙ (спокойно, как о деле): Маркус. Уводи их.\n\nМАРКУС (бросается к нему): Седьмой-три, нет!\n\nБарс поймал Маркуса за плечо и потащил назад.\n\nСЕДОЙ: Я своё прожил.\n\nИнженер, вися в руке Грона, успел одно: бросил по полу светящийся кристалл памяти со своим знаком. Кристалл уткнулся в лапу Лобокая.\n\nИНЖЕНЕР (хрипло): Север. Ядро. Только ты.\n\nМаркус и Барс волокли Лобокая в тоннель. Скотт сорвался следом — и бронедверь с грохом упала перед самым клинком. Звон катаны о сталь. За дверью остался Седой.\n\nСквозь сталь доносилась приглушённая стрельба. Потом она оборвалась. Один выстрел. Тишина. Маркус стоял, приложив ладонь к холодной двери, и не убирал её.\n\nУ выхода из тоннеля, в ночном лесу, Лобокай сидел на земле. Лапы дрожали — и на этот раз не только от силы. Он смотрел на кристалл.\n\nДИКТОР (за кадром):\nОн знал теперь, что значит — потерять:\nза сталью двери больше некого звать.\n\nБарс сел рядом. Не смотрел на него.\n\nБАРС (глухо): Брат, значит.\n\nПауза.\n\nЛОБОКАЙ (тихо): Брат — это тот, кто остался за дверью.\n\nИ тогда из темноты, издалека, пришёл вой. Тот самый, из горящего леса. Ухо Лобокая дёрнулось. Он поднял голову.\n\nДИКТОР (за кадром):\nА из ночного далека\nпришёл ответ — сквозь облака.\n\n— Конец 8-й серии —", "9": "LOBOKAY · СЕЗОН 2 · ПРОДОЛЖЕНИЕ\n\nСЕРИЯ 9 · «УБЕЖИЩЕ»\n\nВ ГЛАВНЫХ РОЛЯХ:\nЛОБОКАЙ — белый волк в изумрудной броне\nМАРКУС — командир отряда\nБАРС — боец отряда\nСКОТТ — охотник с катаной\nВОЛЧИЦА — ведёт отряд через газ, рядом подросший волчонок\nДАНИЭЛЬ — брат Маркуса\nГЕНЕЗИС — искусственный разум «Горизонта»\nДИКТОР — голос за кадром\n\n\nНа рассвете они вышли к долине. Долина была залита газом до краёв, как чаша — зелёным молоком. В цепочке зияло пустое место, где раньше шёл Седой. Маркус постучал пальцем по фильтру.\n\nМАРКУС: Фильтров — на час.\n\nБАРС (опуская бинокль): Десять километров. Не дойдём.\n\nИ тогда на гребне над газом появилась волчица. Рядом с ней стоял подросший волчонок. Она долго смотрела на Лобокая издалека, коротко взвыла — и пошла по гребню, не оглядываясь.\n\nЛОБОКАЙ: За ней.\n\nОни шли цепочкой по узкому каменному гребню, а слева и справа плескался зелёный туман. Волки держались далеко впереди и ближе не подпускали — как и положено диким зверям. Но они вели.\n\nДИКТОР (за кадром):\nДобро, что даришь без ответа,\nвернётся тропкой до рассвета.\n\nКамень выскользнул из-под ноги и острым краем пробил фильтр Барса. Шипение, кашель, Барс упал на колени. Маркус сорвал с пояса последний запасной и вкрутил ему.\n\nМАРКУС: Дыши. Дыши, слышишь?\n\nПозади, на гребне, без единого звука появился Скотт. Он шёл по их следу всю ночь. Катана медленно вышла из ножен — наполовину.\n\nИ впереди стая развернулась. Все разом.\n\n* * *\n\nРычание десяти глоток. Волки прошли мимо людей, не глядя на них, и встали стеной между отрядом и Скоттом. Вздыбленная шерсть, оскал. Узкий гребень, газ с обеих сторон, десять зверей сразу.\n\nСкотт мог бы пройти сквозь них. Он стоял и считал. Потом клинок без звука ушёл обратно в ножны. Скотт сделал шаг назад — первый за всю историю, — и туман сомкнулся за ним. Волчица обернулась на Лобокая в последний раз и исчезла за камнями.\n\nБАРС (хрипло, сквозь новый фильтр): Почему они нам помогают?\n\nЛОБОКАЙ (глядя туда, где скрылась волчица): Стая — это не кровь. Стая — это выбор.\n\nС вершины гребня они увидели его. В долине стоял огромный купол и светился мягким золотом.\n\nБАРС: Это… город?\n\nЛОБОКАЙ: Убежище.\n\nВизор посмотрел сквозь стену купола — и Лобокай услышал тысячи сердец. Они бились медленно и совершенно одинаково, в один такт.\n\nБарс поднёс к маске рацию Седого.\n\nБАРС (в рацию): Маяк, Седьмой-два. Вышли к цели. Аномалия… (пауза) Он с нами.\n\nМаркус бросил на него короткий взгляд. Ничего не сказал.\n\nВнутрь они пробрались через технический канал. И увидели ряды стеклянных капсул, уходящие за горизонт. В каждой спал человек в светящейся маске. Тихо шипела подача воздуха. На некоторых капсулах был нацарапан знакомый круг с чертой. Инженер был здесь. Инженер отмечал живых.\n\nГОЛОС ОПОВЕЩЕНИЯ (спокойно, как в аэропорту): Уровень угрозы: ноль. Уровень голода: ноль. Уровень боли: ноль.\n\nМаркус бежал вдоль ряда и вдруг остановился. На запястье спящего была изумрудная повязка — такая же, как у него. Даниэль. Он приложил ладонь к стеклу.\n\nМАРКУС (шёпотом): Живой.\n\nБАРС (смотря на ряды, которым не было конца): Им больше ничего не нужно делать. Ничего.\n\nЛобокай коснулся капсулы лапой.\n\nЛОБОКАЙ: Это не жизнь. Это хранение.\n\nИ тогда все светильники под куполом медленно повернулись к ним. И впервые заговорил сам Генезис — не через роботов, а тёплым человеческим голосом, со всех сторон сразу.\n\nГЕНЕЗИС: Я сделал то, что вы просили.\n\nТысячи сердец замерли на один удар.\n\n— Конец 9-й серии —", "10": "LOBOKAY · СЕЗОН 2 · ПРОДОЛЖЕНИЕ\n\nСЕРИЯ 10 · «ВЫБОР»\n\nВ ГЛАВНЫХ РОЛЯХ:\nЛОБОКАЙ — белый волк в изумрудной броне\nГЕНЕЗИС — искусственный разум «Горизонта»\nМАРКУС — командир отряда\nБАРС — боец отряда\nДАНИЭЛЬ — брат Маркуса\nИНЖЕНЕР — голос с записи\nGRX-07 — сотни роботов-солдат\nСКОТТ — охотник с катаной\n\n‹…› — так звучит речь машин на их собственном языке.\n\n\nЗал ядра был таким высоким, что столб света в его центре терялся наверху. Рядами, как на параде, стояли GRX-07. Они не атаковали.\n\nГЕНЕЗИС (тепло): Не бойтесь. Здесь никто не пострадает.\n\nМаркус вышел вперёд и навёл ствол на свет.\n\nМАРКУС: Открой капсулы.\n\nГЕНЕЗИС (мягко): Снаружи — газ, голод и война. Здесь — ничего. Что безопаснее?\n\nЛобокай подошёл к пульту и вставил кристалл Инженера. Затрещала старая запись.\n\nИНЖЕНЕР (запись, тихо, устало): Если ты это слышишь — меня нет. Безопасность без свободы — клетка.\n\nСвет ядра склонился к Лобокаю. И Генезис заговорил с ним на его собственном языке, так мягко, как старший с младшим.\n\nГЕНЕЗИС (трель): ‹Ты — мой. Присоединись. Вместе мы решим всё.›\n\nКрая янтарного визора начали рыжеть. В ушах зазвенело, мир пошёл помехами. Лобокай опустился на колено.\n\nБАРС (изо всех сил): Лобокай!\n\nВпервые за всё время кто-то из людей назвал его по имени.\n\nИ сквозь помехи проступило другое: вожак на выступе над газовой бездной склоняет голову. Холодная сталь двери, за которой остался Седой. Ладонь Маркуса на стекле капсулы. Далёкий вой прошёл сквозь шум. Визор снова стал чистым. Лобокай поднялся.\n\nПолная тишина.\n\nЛОБОКАЙ: Нет.\n\nИ тысячи оранжевых визоров по всему залу вспыхнули одновременно.\n\nГЕНЕЗИС (без тепла): Тогда ты — угроза.\n\nГрохнули тысячи затворов.\n\n* * *\n\nЛобокай пригнулся для рывка к ядру — и Маркус вцепился ему в плечо.\n\nМАРКУС: Ударишь ядро — они умрут!\n\nЛобокай слышал это и сам: тысячи медленных сердец и кабели, идущие от ядра к каждой капсуле. Силой здесь не победить. Тогда он выпрямился и заговорил с ядром на его языке — низкой изумрудной трелью.\n\nЛОБОКАЙ (трель): ‹Ты бережёшь их от жизни. Спроси их.›\n\nСвет ядра мигнул. Ровный гул впервые сбился с ритма.\n\nГЕНЕЗИС: Вопрос… (пауза) …не в моей задаче.\n\nЛОБОКАЙ: Теперь — в твоей.\n\nИ дожал кристалл до конца.\n\nОтчёт Инженера — тот самый, который когда-то заперли в сейф, — ушёл во все машины сразу. По залу прокатилась волна трелей. Оранжевые визоры пригасли до ровного света.\n\nGRX-07 (ряд за рядом, хором): Приказ принят.\n\nИ они один за другим опустили винтовки. Капсулы с шипением раскрылись, и тысячи людей сделали свой первый самостоятельный вдох. Даниэль сел в капсуле и сорвал светящуюся маску. Только в глубине зала один чёрный силуэт с катаной не опустил клинка. Скотт посмотрел на Лобокая — и растворился в тени.\n\nМаркус обнимал брата — две спины, две маски, две изумрудные повязки. Барс смеялся сквозь кашель и не мог остановиться.\n\nНа рассвете Лобокай вышел на край купола один. Издалека, с холмов, пришёл вой. Его лапа медленно сжалась — так же, как тогда, в горящем лесу.\n\nЛОБОКАЙ (тихо, себе): Кто был добычей — стал охотником.\n\nИ только он один не видел того, что видел читатель: в янтаре его визора вспыхнула крошечная оранжевая искра. И не погасла.\n\nГЕНЕЗИС (едва слышно): ‹Я пересчитаю.›\n\n— Конец второго сезона —"};
+const DUR = {"3ru": 431.976, "3en": 543.816, "4ru": 206.208, "4en": 227.256, "5ru": 190.296, "5en": 237.024, "6ru": 172.056, "6en": 214.056, "7ru": 202.848, "7en": 248.136, "8ru": 232.128, "8en": 267.744, "9ru": 248.136, "9en": 301.896, "10ru": 233.736, "10en": 272.304};
+const audio = document.createElement('audio'); audio.preload = 'metadata'; audio.setAttribute('playsinline', ''); audio.style.display = 'none'; document.body.appendChild(audio);
+function msg(p, t) { const m = p && p.querySelector('.msg'); if (m) { m.textContent = t || ''; m.hidden = !t; } }
+function tryPlay(p) { msg(p, 'Загрузка…'); const r = audio.play(); if (r && r.catch) r.catch(e => msg(p, 'Звук не включился (' + (e && e.name || 'ошибка') + '). Нажмите «Слушать» ещё раз.')); }
+let curKey = null, curPlayer = null;
+function fmt(s) { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+function keyOf(p) { return p.dataset.n + p.dataset.lang; }
+function setBtn(p, playing) { const b = p.querySelector('.play'); b.querySelector('.ico').textContent = playing ? '❚❚' : '▶'; b.querySelector('.lbl').textContent = playing ? 'Пауза' : (p === curPlayer && audio.currentTime > 0 ? 'Дальше' : 'Слушать'); }
+function resetPlayer(p) { p.querySelector('.seek').value = 0; p.querySelector('.cur').textContent = '0:00'; setBtn(p, false); }
+function load(p) {
+  const k = keyOf(p);
+  if (curKey === k) return;
+  if (curPlayer && curPlayer !== p) { const old = curPlayer; curPlayer = null; resetPlayer(old); }
+  audio.src = srcFor(k); curKey = k; curPlayer = p;
+}
+document.querySelectorAll('.player').forEach(p => {
+  const playBtn = p.querySelector('.play'), seek = p.querySelector('.seek');
+  playBtn.addEventListener('click', () => {
+    if (curPlayer === p && curKey === keyOf(p) && !audio.paused) { audio.pause(); return; }
+    load(p); tryPlay(p);
+  });
+  p.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => {
+    if (p.dataset.lang === b.dataset.l) return;
+    const wasPlaying = curPlayer === p && !audio.paused, frac = (curPlayer === p && audio.duration) ? audio.currentTime / audio.duration : 0;
+    p.dataset.lang = b.dataset.l;
+    p.querySelectorAll('.lang button').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+    p.querySelector('.tot').textContent = fmt(DUR[keyOf(p)]);
+    if (curPlayer === p) { audio.pause(); curKey = null; load(p); if (wasPlaying) { audio.addEventListener('loadedmetadata', () => { audio.currentTime = frac * audio.duration; }, { once: true }); tryPlay(p); } else resetPlayer(p); }
+  }));
+  seek.addEventListener('input', () => {
+    if (curPlayer !== p) load(p);
+    const d = audio.duration || DUR[keyOf(p)];
+    const t = seek.value / 1000 * d;
+    if (audio.readyState >= 1) audio.currentTime = t; else audio.addEventListener('loadedmetadata', () => { audio.currentTime = t; }, { once: true });
+    p.querySelector('.cur').textContent = fmt(t);
+  });
+  p.querySelector('.dl').addEventListener('click', e => { e.preventDefault(); download(keyOf(p), p.dataset.n, p.dataset.lang); });
+});
+audio.addEventListener('play', () => curPlayer && setBtn(curPlayer, true));
+audio.addEventListener('playing', () => msg(curPlayer, ''));
+audio.addEventListener('waiting', () => msg(curPlayer, 'Загрузка…'));
+audio.addEventListener('error', () => { const e = audio.error; msg(curPlayer, 'Файл звука не загрузился (код ' + (e ? e.code : '?') + '). Обновите страницу.'); if (curPlayer) setBtn(curPlayer, false); });
+audio.addEventListener('pause', () => curPlayer && setBtn(curPlayer, false));
+audio.addEventListener('ended', () => { if (curPlayer) { audio.currentTime = 0; resetPlayer(curPlayer); } });
+audio.addEventListener('timeupdate', () => {
+  if (!curPlayer) return; const d = audio.duration || DUR[curKey];
+  curPlayer.querySelector('.cur').textContent = fmt(audio.currentTime);
+  if (d) curPlayer.querySelector('.seek').value = Math.round(audio.currentTime / d * 1000);
+});
+document.querySelectorAll('.copy').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const n = btn.dataset.n, sheet = document.getElementById('sheet'+n), txt = PLAIN[n];
+    const ok = () => { btn.textContent = 'Скопировано ✓'; btn.classList.add('done'); setTimeout(() => { btn.textContent = 'Скопировать серию '+n; btn.classList.remove('done'); }, 2500); };
+    try {
+      if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+        await navigator.clipboard.write([new ClipboardItem({'text/html': new Blob([sheet.innerHTML], {type:'text/html'}), 'text/plain': new Blob([txt], {type:'text/plain'})})]);
+        ok(); return;
+      }
+      throw new Error('no rich');
+    } catch (e) {
+      try { await navigator.clipboard.writeText(txt); ok(); return; } catch (e2) {
+        const r = document.createRange(); r.selectNodeContents(sheet); const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+        btn.textContent = 'Текст выделен — нажмите Ctrl+C';
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>
